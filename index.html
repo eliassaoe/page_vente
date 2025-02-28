@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>IA Society - Agents IA</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #BC0003;
+            --secondary: #910002;
+            --black: #000000;
+            --white: #ffffff;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--white);
+            background-color: var(--black);
+        }
+        
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .header {
+            text-align: center;
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .logo {
+            max-width: 200px;
+        }
+        
+        .hero {
+            padding: 50px 0;
+            text-align: center;
+        }
+        
+        .hero-title {
+            font-family: 'Anton', sans-serif;
+            font-size: 38px;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+        
+        .price-box {
+            background-color: var(--primary);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 30px auto;
+            max-width: 600px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--secondary);
+            color: var(--white);
+            font-weight: 700;
+            font-size: 18px;
+            text-transform: uppercase;
+            padding: 20px 40px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            margin: 20px 0;
+        }
+        
+        .btn:hover {
+            background-color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .features {
+            padding: 50px 0;
+            text-align: center;
+        }
+        
+        .section-title {
+            font-family: 'Anton', sans-serif;
+            font-size: 32px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .feature-box {
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 25px;
+            border-radius: 8px;
+            text-align: left;
+        }
+        
+        .feature-icon {
+            font-size: 32px;
+            margin-bottom: 15px;
+        }
+        
+        .feature-box h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: var(--white);
+        }
+        
+        .feature-box p {
+            font-size: 15px;
+            line-height: 1.5;
+            color: #C9D8E0;
+        }
+        
+        .cta {
+            padding: 60px 0;
+            text-align: center;
+        }
+        
+        .urgency {
+            color: #e93d3d;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        .footer {
+            padding: 20px 0;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 32px;
+            }
+            
+            .price-box {
+                font-size: 18px;
+            }
+            
+            .btn {
+                padding: 15px 30px;
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <img src="https://via.placeholder.com/200x60?text=IA+Society" alt="IA Society" class="logo">
+        </div>
+    </header>
+    
+    <section class="hero">
+        <div class="container">
+            <h1 class="hero-title">MAÎTRISEZ ET VENDEZ DES AGENTS IA AUX ENTREPRISES</h1>
+            
+            <div style="position: relative; padding-bottom: 62.5%; height: 0;"><iframe src="https://www.loom.com/embed/634e4da6372b42e184ffb84e4bac5a97?sid=ca0f0c64-eb5c-4f55-801e-4fd35cf7a901" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe></div>
+            
+            <div class="price-box">
+                OFFRE SPÉCIALE: 49€/MOIS SANS ENGAGEMENT<br>
+                <span style="font-size: 18px">au lieu de 97€</span>
+            </div>
+            
+            <a href="#join" class="btn">ACHETER MAINTENANT</a>
+        </div>
+    </section>
+    
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">TOUT CE QUI EST INCLUS</h2>
+            
+            <div class="feature-grid">
+                <div class="feature-box">
+                    <div class="feature-icon">📱</div>
+                    <h3>Contact direct par message</h3>
+                    <p>Accès privilégié pour poser toutes vos questions et obtenir une réponse rapide inclus dans votre abonnement.</p>
+                </div>
+                
+                <div class="feature-box">
+                    <div class="feature-icon">🧑‍🏫</div>
+                    <h3>Guide complet des agents IA</h3>
+                    <p>Documentation détaillée sur la création, configuration et déploiement d'agents IA pour le marché B2B.</p>
+                </div>
+                
+                <div class="feature-box">
+                    <div class="feature-icon">💼</div>
+                    <h3>Contacts B2B privilégiés</h3>
+                    <p>Accès à notre réseau de décideurs et d'entreprises à la recherche de solutions IA pour accélérer votre prospection.</p>
+                </div>
+                
+                <div class="feature-box">
+                    <div class="feature-icon">🔴</div>
+                    <h3>Lives hebdomadaires</h3>
+                    <p>Sessions en direct avec nos experts pour approfondir vos connaissances et répondre à vos questions techniques.</p>
+                </div>
+                
+                <div class="feature-box">
+                    <div class="feature-icon">🤖</div>
+                    <h3>Templates d'agents IA</h3>
+                    <p>Bibliothèque de modèles d'agents IA personnalisables prêts à être déployés pour vos clients B2B.</p>
+                </div>
+                
+                <div class="feature-box">
+                    <div class="feature-icon">👨‍🏫</div>
+                    <h3>Coaching personnalisé</h3>
+                    <p>Accompagnement individuel pour développer votre offre commerciale et maximiser vos chances de vente.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="cta" id="join">
+        <div class="container">
+            <div class="price-box">
+                49€/MOIS - PRIX BLOQUÉ À VIE<br>
+                <span style="font-size: 18px">Sans engagement - Résiliable à tout moment</span>
+            </div>
+            
+            <p class="urgency">🚨 Le prix passera à 97€ après 200 inscriptions !</p>
+            
+            <a href="#" class="btn">ACHETER MAINTENANT</a>
+        </div>
+    </section>
+    
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 IA Society</p>
+        </div>
+    </footer>
+</body>
+</html>
