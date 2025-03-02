@@ -7,6 +7,64 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <!-- TikTok Pixel Code Start -->
+    <script>
+    !function (w, d, t) {
+        w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie","holdConsent","revokeConsent","grantConsent"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var r="https://analytics.tiktok.com/i18n/pixel/events.js",o=n&&n.partner;ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=r,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};n=document.createElement("script");n.type="text/javascript",n.async=!0,n.src=r+"?sdkid="+e+"&lib="+t;e=document.getElementsByTagName("script")[0];e.parentNode.insertBefore(n,e)};
+        ttq.load('CV2539RC77UAL9J2PSJG');
+        ttq.page();
+    }(window, document, 'ttq');
+    </script>
+    <!-- TikTok Pixel Code End -->
+    <script>
+    // Fonction améliorée pour gérer le suivi des conversions TikTok
+    function trackTikTokConversion(eventType) {
+        ttq.ready(function() {
+            try {
+                // Créer un ID d'événement uniforme
+                const eventId = eventType.toLowerCase() + "_" + Date.now();
+                const transactionId = "ORDER_" + Date.now();
+                
+                // Version avec l'ancienne structure pour la compatibilité
+                ttq.track(eventType, {
+                    "contents": [
+                        {
+                            "content_id": "ia-society-membership",
+                            "content_type": "product",
+                            "content_name": "IA Society Membership"
+                        }
+                    ],
+                    "value": 49,
+                    "currency": "EUR"
+                }, {
+                    "event_id": eventId
+                });
+                
+                // Version avec la nouvelle structure pour l'API Events (améliorée)
+                ttq.track(eventType, {
+                    "contents": [
+                        {
+                            "content_id": "ia-society-membership",
+                            "content_type": "product",
+                            "content_name": "IA Society Membership"
+                        }
+                    ],
+                    "value": 49,
+                    "currency": "EUR",
+                    "quantity": 1,
+                    "purchase_type": "subscription",
+                    "transaction_id": transactionId,
+                    "event_id": eventId,
+                    "url": window.location.href
+                });
+                
+                console.log("TikTok conversion tracked: " + eventType + " with ID: " + eventId);
+            } catch (e) {
+                console.error("Error tracking TikTok conversion: ", e);
+            }
+        });
+    }
+    </script>
     <style>
         :root {
             --primary: #BC0003;
@@ -178,7 +236,7 @@
                 <span style="font-size: 18px">au lieu de 97€</span>
             </div>
             
-            <a href="https://buy.stripe.com/7sI15x6VN8x97e03ce" class="btn" target="_blank">ACHETER MAINTENANT</a>
+            <a href="https://buy.stripe.com/7sI15x6VN8x97e03ce" class="btn" target="_blank" onclick="trackTikTokConversion('InitiateCheckout'); return true;">ACHETER MAINTENANT</a>
         </div>
     </section>
     
@@ -235,7 +293,7 @@
             
             <p class="urgency">🚨 Le prix passera à 97€ après 200 inscriptions !</p>
             
-            <a href="https://buy.stripe.com/7sI15x6VN8x97e03ce" class="btn" target="_blank">ACHETER MAINTENANT</a>
+            <a href="https://buy.stripe.com/7sI15x6VN8x97e03ce" class="btn" target="_blank" onclick="trackTikTokConversion('InitiateCheckout'); return true;">ACHETER MAINTENANT</a>
         </div>
     </section>
     
