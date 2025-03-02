@@ -129,19 +129,22 @@
             </ol>
         </div>
         
-        <a href="https://discord.gg/V2ErC4Aw4r" class="btn">ACCÉDER À LA COMMUNAUTÉ</a>
+        <a href="https://www.skool.com/agent-ia-bussiness-3101/about?ref=99b48414107d49289bab64192248f14c" class="btn">ACCÉDER À LA COMMUNAUTÉ</a>
         
         <a href="https://calendly.com/hamoureliasse/appel-de-candidature-clone" class="btn" style="margin-left: 15px; background-color: #37ca37;">RÉSERVER MON APPEL</a>
     </div>
     
     <!-- Script pour envoyer l'événement de conversion CompletePayment à TikTok -->
     <script>
-        // Attendre que le pixel TikTok soit chargé
+        // Utiliser ttq.ready au lieu de setTimeout
         window.addEventListener('DOMContentLoaded', (event) => {
-            // S'assurer que le pixel TikTok est bien chargé
-            setTimeout(function() {
+            ttq.ready(function() {
                 try {
-                    // Envoyer l'événement CompletePayment à TikTok
+                    // Créer des identifiants uniques
+                    const eventId = "completepayment_" + Date.now();
+                    const transactionId = "ORDER_" + Date.now();
+                    
+                    // Version avec l'ancienne structure pour la compatibilité
                     ttq.track('CompletePayment', {
                         "contents": [
                             {
@@ -153,14 +156,32 @@
                         "value": 49,
                         "currency": "EUR"
                     }, {
-                        "event_id": "payment_" + Date.now()
+                        "event_id": eventId
                     });
                     
-                    console.log("TikTok CompletePayment event successfully sent");
+                    // Version avec la nouvelle structure pour l'API Events (améliorée)
+                    ttq.track('CompletePayment', {
+                        "contents": [
+                            {
+                                "content_id": "ia-society-membership",
+                                "content_type": "product",
+                                "content_name": "IA Society Membership"
+                            }
+                        ],
+                        "value": 49,
+                        "currency": "EUR",
+                        "quantity": 1,
+                        "purchase_type": "subscription",
+                        "transaction_id": transactionId,
+                        "event_id": eventId,
+                        "url": window.location.href
+                    });
+                    
+                    console.log("TikTok CompletePayment event successfully sent with ID: " + eventId);
                 } catch (e) {
                     console.error("Error sending TikTok CompletePayment event: ", e);
                 }
-            }, 1000); // Attendre 1 seconde pour s'assurer que le pixel est bien chargé
+            });
         });
     </script>
 </body>
