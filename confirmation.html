@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Confirmation d'achat - IA Society</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- TikTok Pixel Code Start -->
+    <script>
+    !function (w, d, t) {
+        w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie","holdConsent","revokeConsent","grantConsent"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var r="https://analytics.tiktok.com/i18n/pixel/events.js",o=n&&n.partner;ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=r,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};n=document.createElement("script");n.type="text/javascript",n.async=!0,n.src=r+"?sdkid="+e+"&lib="+t;e=document.getElementsByTagName("script")[0];e.parentNode.insertBefore(n,e)};
+        ttq.load('CV2539RC77UAL9J2PSJG');
+        ttq.page();
+    }(window, document, 'ttq');
+    </script>
+    <!-- TikTok Pixel Code End -->
+    
+    <style>
+        :root {
+            --primary: #BC0003;
+            --secondary: #910002;
+            --black: #000000;
+            --white: #ffffff;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--white);
+            background-color: var(--black);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            text-align: center;
+        }
+        
+        .logo {
+            max-width: 200px;
+            margin-bottom: 40px;
+        }
+        
+        .confirmation-title {
+            font-family: 'Anton', sans-serif;
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        
+        .confirmation-text {
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+        
+        .success-icon {
+            font-size: 80px;
+            color: #37ca37;
+            margin-bottom: 30px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--secondary);
+            color: var(--white);
+            font-weight: 700;
+            font-size: 16px;
+            text-transform: uppercase;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        
+        .btn:hover {
+            background-color: var(--primary);
+        }
+        
+        .steps {
+            margin-top: 40px;
+            text-align: left;
+        }
+        
+        .steps h3 {
+            margin-bottom: 15px;
+        }
+        
+        .steps ol {
+            padding-left: 20px;
+        }
+        
+        .steps li {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="https://via.placeholder.com/200x60?text=IA+Society" alt="IA Society" class="logo">
+        
+        <div class="success-icon">✓</div>
+        
+        <h1 class="confirmation-title">PAIEMENT CONFIRMÉ !</h1>
+        
+        <p class="confirmation-text">
+            Félicitations ! Votre abonnement à IA Society a été activé avec succès.
+            Vous faites maintenant partie de notre communauté d'experts en IA.
+        </p>
+        
+        <div class="steps">
+            <h3>Prochaines étapes :</h3>
+            <ol>
+                <li>Vous allez recevoir un email de confirmation avec vos informations d'accès.</li>
+                <li>Rejoignez notre communauté privée pour commencer à interagir avec les autres membres.</li>
+                <li>Réservez votre appel d'onboarding avec un coach IA pour bien démarrer.</li>
+            </ol>
+        </div>
+        
+        <a href="https://www.skool.com/agent-ia-bussiness-3101/about?ref=99b48414107d49289bab64192248f14c" class="btn">ACCÉDER À LA COMMUNAUTÉ</a>
+        
+        <a href="https://calendly.com/hamoureliasse/appel-de-candidature-clone" class="btn" style="margin-left: 15px; background-color: #37ca37;">RÉSERVER MON APPEL</a>
+    </div>
+    
+    <!-- Script pour envoyer l'événement de conversion CompletePayment à TikTok -->
+    <script>
+        // Attendre que le pixel TikTok soit chargé
+        window.addEventListener('DOMContentLoaded', (event) => {
+            // S'assurer que le pixel TikTok est bien chargé
+            setTimeout(function() {
+                try {
+                    // Envoyer l'événement CompletePayment à TikTok
+                    ttq.track('CompletePayment', {
+                        "contents": [
+                            {
+                                "content_id": "ia-society-membership",
+                                "content_type": "product",
+                                "content_name": "IA Society Membership"
+                            }
+                        ],
+                        "value": 49,
+                        "currency": "EUR"
+                    }, {
+                        "event_id": "payment_" + Date.now()
+                    });
+                    
+                    console.log("TikTok CompletePayment event successfully sent");
+                } catch (e) {
+                    console.error("Error sending TikTok CompletePayment event: ", e);
+                }
+            }, 1000); // Attendre 1 seconde pour s'assurer que le pixel est bien chargé
+        });
+    </script>
+</body>
+</html>
