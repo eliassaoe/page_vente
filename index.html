@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     
     <!-- Meta tags Open Graph pour améliorer le tracking -->
     <meta property="og:title" content="IA Society - Agents IA" />
@@ -72,8 +72,11 @@
         :root {
             --primary: #BC0003;
             --secondary: #910002;
+            --highlight: #FF4A4C;
             --black: #000000;
             --white: #ffffff;
+            --gray-light: #f0f0f0;
+            --gray-dark: #333333;
         }
         
         * {
@@ -87,7 +90,7 @@
             font-family: 'Montserrat', sans-serif;
             color: var(--white);
             background-color: var(--black);
-            line-height: 1.4;
+            line-height: 1.5;
             font-size: 16px;
             overflow-x: hidden; /* Empêcher le défilement horizontal */
         }
@@ -96,40 +99,100 @@
             width: 100%;
             max-width: 1100px;
             margin: 0 auto;
-            padding: 0 15px;
+            padding: 0 20px;
         }
         
         .header {
             text-align: center;
             padding: 15px 0;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            position: relative;
+            z-index: 10;
         }
         
         .logo {
             max-width: 160px;
+            font-weight: 700;
+            font-size: 24px;
+            background: linear-gradient(90deg, var(--white) 0%, var(--highlight) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.3);
         }
         
         .hero {
-            padding: 25px 0;
+            padding: 35px 0 25px;
             text-align: center;
         }
         
         .hero-title {
-            font-family: 'Anton', sans-serif;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
             font-size: 28px;
-            line-height: 1.2;
-            margin-bottom: 20px;
+            line-height: 1.3;
+            margin-bottom: 30px;
             padding: 0 10px;
+            letter-spacing: -0.5px;
+        }
+        
+        .hero-title .highlight {
+            color: var(--highlight);
+            font-weight: 700;
+            display: inline;
+        }
+        
+        .hero-subtitle {
+            font-size: 18px;
+            margin-bottom: 25px;
+            color: #C9D8E0;
+            font-weight: 500;
         }
         
         /* Styles optimisés pour la vidéo */
+        .video-wrapper {
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        .video-label {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--highlight);
+            color: var(--white);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 14px;
+            z-index: 2;
+            white-space: nowrap;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: translateX(-50%) scale(1); }
+            50% { transform: translateX(-50%) scale(1.05); }
+            100% { transform: translateX(-50%) scale(1); }
+        }
+        
         .video-container {
             position: relative;
             width: 100%;
-            margin-bottom: 25px;
             border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .video-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+            border-color: var(--highlight);
         }
         
         .video-container iframe {
@@ -140,22 +203,103 @@
             max-height: none !important;
         }
         
-        .price-box {
-            background-color: var(--primary);
-            padding: 20px 15px;
+        .play-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0.2);
             border-radius: 12px;
-            margin: 25px auto;
+            pointer-events: none;
+        }
+        
+        .play-button {
+            width: 80px;
+            height: 80px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s;
+        }
+        
+        .play-button::after {
+            content: '';
+            width: 0;
+            height: 0;
+            border-top: 20px solid transparent;
+            border-left: 35px solid var(--white);
+            border-bottom: 20px solid transparent;
+            margin-left: 8px;
+        }
+        
+        .video-container:hover .play-button {
+            transform: scale(1.1);
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+        
+        .price-box {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--highlight) 100%);
+            padding: 25px 20px;
+            border-radius: 12px;
+            margin: 30px auto;
             width: 100%;
             font-size: 22px;
             font-weight: bold;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .price-box::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            width: 80px;
+            height: 80px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            z-index: 0;
+        }
+        
+        .price-label {
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 8px;
+            opacity: 0.9;
+        }
+        
+        .price-value {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        
+        .price-regular {
+            font-size: 16px;
+            text-decoration: line-through;
+            opacity: 0.7;
+            margin-bottom: 10px;
+        }
+        
+        .price-guarantee {
+            font-size: 14px;
+            opacity: 0.9;
+            font-weight: 500;
         }
         
         .btn {
             display: block;
             width: 100%;
             max-width: none;
-            background-color: var(--secondary);
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
             color: var(--white);
             font-weight: 700;
             font-size: 20px;
@@ -166,8 +310,11 @@
             cursor: pointer;
             text-decoration: none;
             margin: 25px 0;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-            transition: transform 0.2s, background-color 0.2s, box-shadow 0.2s;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s, background 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
             -webkit-appearance: none;
             -webkit-touch-callout: none;
             -webkit-user-select: none;
@@ -175,51 +322,187 @@
             outline: none;
         }
         
+        .btn::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 0;
+            background: rgba(255, 255, 255, 0.1);
+            transition: height 0.3s;
+            z-index: -1;
+        }
+        
         .btn:hover, .btn:active {
-            background-color: var(--primary);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.4);
+        }
+        
+        .btn:hover::after {
+            height: 100%;
         }
         
         .btn:active {
             transform: translateY(1px);
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        .btn-label {
+            display: block;
+            font-size: 12px;
+            margin-top: 5px;
+            font-weight: 500;
+            text-transform: none;
+            opacity: 0.9;
+        }
+        
+        .testimonials {
+            padding: 30px 0;
+            background-color: rgba(255, 255, 255, 0.02);
+            margin: 20px 0;
+        }
+        
+        .testimonial-box {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        
+        .testimonial-quote {
+            font-style: italic;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .testimonial-quote::before {
+            content: '"';
+            font-size: 60px;
+            color: rgba(255, 255, 255, 0.1);
+            position: absolute;
+            top: -20px;
+            left: -15px;
+            z-index: -1;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+        
+        .testimonial-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #444;
+            margin-right: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: 700;
+            color: var(--white);
+        }
+        
+        .testimonial-info {
+            flex: 1;
+        }
+        
+        .testimonial-name {
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+        
+        .testimonial-role {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .testimonial-result {
+            color: var(--highlight);
+            font-weight: 600;
+            font-size: 14px;
+            margin-top: 5px;
         }
         
         .features {
-            padding: 30px 0;
+            padding: 40px 0;
             text-align: center;
         }
         
         .section-title {
-            font-family: 'Anton', sans-serif;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
             font-size: 26px;
-            margin-bottom: 25px;
+            margin-bottom: 35px;
             text-align: center;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background-color: var(--highlight);
         }
         
         .feature-grid {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 15px;
+            gap: 20px;
         }
         
         .feature-box {
             background-color: rgba(255, 255, 255, 0.05);
-            padding: 22px 18px;
+            padding: 25px 20px;
             border-radius: 12px;
             text-align: left;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            border-color: rgba(255, 255, 255, 0.15);
         }
         
         .feature-icon {
             font-size: 36px;
-            margin-bottom: 12px;
+            margin-bottom: 15px;
+            display: inline-block;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .feature-icon::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 45px;
+            height: 45px;
+            background-color: rgba(255, 255, 255, 0.08);
+            border-radius: 50%;
+            z-index: -1;
         }
         
         .feature-box h3 {
             font-size: 18px;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             color: var(--white);
+            font-weight: 600;
         }
         
         .feature-box p {
@@ -228,51 +511,166 @@
             color: #C9D8E0;
         }
         
+        .guarantee-box {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 30px 0;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .guarantee-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+        
+        .guarantee-icon {
+            font-size: 32px;
+            margin-bottom: 15px;
+        }
+        
         .cta {
             padding: 40px 0;
             text-align: center;
         }
         
         .urgency {
-            color: #e93d3d;
+            color: var(--highlight);
             font-size: 18px;
             font-weight: 700;
-            margin: 20px 0;
-            padding: 12px;
-            background-color: rgba(233, 61, 61, 0.1);
+            margin: 30px 0;
+            padding: 15px;
+            background-color: rgba(255, 74, 76, 0.1);
             border-radius: 8px;
+            border: 1px dashed rgba(255, 74, 76, 0.4);
+            position: relative;
+            overflow: hidden;
         }
         
         .footer {
-            padding: 20px 0;
+            padding: 25px 0;
             text-align: center;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 14px;
+        }
+        
+        .footer-links {
+            margin-top: 10px;
+        }
+        
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            margin: 0 10px;
+            font-size: 12px;
+        }
+        
+        .footer-links a:hover {
+            color: var(--white);
+            text-decoration: underline;
+        }
+        
+        .counter-container {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        
+        .counter-item {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 8px 12px;
+            margin: 0 5px;
+            min-width: 60px;
+        }
+        
+        .counter-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--highlight);
+        }
+        
+        .counter-label {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.7);
         }
         
         /* Optimisations spécifiques pour les appareils mobiles */
+        @media (min-width: 768px) {
+            .feature-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .testimonials-grid {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+            
+            .testimonial-box {
+                margin-bottom: 0;
+            }
+        }
+        
         @media (max-width: 768px) {
+            .container {
+                padding: 0 15px;
+            }
+            
             body {
-                font-size: 18px;
+                font-size: 16px;
             }
             
             .hero {
-                padding-top: 15px;
+                padding-top: 20px;
             }
             
             .hero-title {
-                font-size: 26px;
-                margin-bottom: 15px;
+                font-size: 24px;
+                margin-bottom: 20px;
+                font-weight: 600;
+                letter-spacing: -0.3px;
+            }
+            
+            .hero-subtitle {
+                font-size: 16px;
+                padding: 0 10px;
+            }
+            
+            .play-button {
+                width: 60px;
+                height: 60px;
+            }
+            
+            .play-button::after {
+                border-top: 15px solid transparent;
+                border-left: 25px solid var(--white);
+                border-bottom: 15px solid transparent;
+                margin-left: 5px;
+            }
+            
+            .video-label {
+                font-size: 12px;
+                padding: 5px 12px;
             }
             
             .btn {
-                font-size: 20px;
-                padding: 18px 15px;
-                margin: 15px auto;
+                font-size: 18px;
+                padding: 16px 10px;
+                margin: 20px auto;
+                border-radius: 10px;
             }
             
             .price-box {
                 font-size: 20px;
-                padding: 18px 10px;
+                padding: 20px 15px;
+                margin: 25px auto;
+            }
+            
+            .price-value {
+                font-size: 28px;
             }
             
             .feature-box {
@@ -280,32 +678,73 @@
             }
             
             .feature-box h3 {
-                font-size: 18px;
+                font-size: 17px;
             }
             
             .feature-box p {
-                font-size: 16px;
+                font-size: 15px;
             }
             
             .section-title {
-                font-size: 24px;
-                margin-bottom: 20px;
+                font-size: 22px;
+                margin-bottom: 25px;
+            }
+            
+            .urgency {
+                font-size: 16px;
+                padding: 12px;
+                margin: 20px 0;
             }
         }
         
         /* Optimisations spécifiques pour les petits téléphones */
         @media (max-width: 375px) {
+            .container {
+                padding: 0 10px;
+            }
+            
             .hero-title {
-                font-size: 24px;
+                font-size: 22px;
+                line-height: 1.4;
+                padding: 0 5px;
             }
             
             .btn {
-                font-size: 18px;
-                padding: 16px 10px;
+                font-size: 16px;
+                padding: 15px 10px;
             }
             
             .price-box {
                 font-size: 18px;
+                padding: 15px 10px;
+            }
+            
+            .price-value {
+                font-size: 24px;
+            }
+            
+            .play-button {
+                width: 50px;
+                height: 50px;
+            }
+            
+            .play-button::after {
+                border-top: 12px solid transparent;
+                border-left: 20px solid var(--white);
+                border-bottom: 12px solid transparent;
+            }
+        }
+        
+        @media (min-width: 992px) {
+            .feature-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .hero-title {
+                font-size: 32px;
+                max-width: 80%;
+                margin-left: auto;
+                margin-right: auto;
             }
         }
     </style>
@@ -313,25 +752,78 @@
 <body>
     <header class="header">
         <div class="container">
-            <h2>IA Society</h2>
+            <h2 class="logo">IA Society</h2>
         </div>
     </header>
     
     <section class="hero">
         <div class="container">
             <h1 class="hero-title">
-Comment les agents IA permettent à des milliers de débutants de 
-gagner jusqu'à 3872€/mois 
-⬇ </h1>
-            <div class="video-container">
-                <iframe src="https://www.loom.com/embed/9ce412339c7c4d76b877e360d6459c41?sid=b3866f13-49a3-4616-af0d-7dfc8e8326a5" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-            </div>
-            <div class="price-box">
-                OFFRE SPÉCIALE: 47€/MOIS SANS ENGAGEMENT<br>
-                <span style="font-size: 16px">au lieu de 97€</span>
+                Comment les agents IA permettent à des débutants de gagner <span class="highlight">jusqu'à 3872€/mois</span> en accompagnant les entreprises
+            </h1>
+            
+            <p class="hero-subtitle">Rejoignez les milliers d'entrepreneurs qui monétisent l'IA sans compétences techniques</p>
+            
+            <div class="video-wrapper">
+                <div class="video-label">📺 Regardez cette vidéo de 5 minutes</div>
+                <div class="video-container" onclick="trackTikTokConversion('VideoPlay')">
+                    <iframe src="https://www.loom.com/embed/9ce412339c7c4d76b877e360d6459c41?sid=b3866f13-49a3-4616-af0d-7dfc8e8326a5" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                    <div class="play-overlay">
+                        <div class="play-button"></div>
+                    </div>
+                </div>
             </div>
             
-            <a href="https://buy.stripe.com/fZe6pR1BtcNp2XK3cf" class="btn" target="_blank" onclick="trackTikTokConversion('InitiateCheckout'); return true;">ACHETER MAINTENANT</a>
+            <div class="price-box">
+                <div class="price-label">OFFRE SPÉCIALE À DURÉE LIMITÉE</div>
+                <div class="price-value">47€/MOIS</div>
+                <div class="price-regular">au lieu de 97€</div>
+                <div class="price-guarantee">Sans engagement - Résiliable à tout moment</div>
+            </div>
+            
+            <a href="https://buy.stripe.com/fZe6pR1BtcNp2XK3cf" class="btn" target="_blank" onclick="trackTikTokConversion('InitiateCheckout'); return true;">
+                REJOINDRE MAINTENANT
+                <span class="btn-label">Accès immédiat à tous les contenus</span>
+            </a>
+            
+            <div class="counter-container">
+                <div class="counter-item">
+                    <div class="counter-value" id="places-left">87</div>
+                    <div class="counter-label">Places restantes</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="testimonials">
+        <div class="container">
+            <h2 class="section-title">ILS ONT RÉUSSI AVEC NOUS</h2>
+            
+            <div class="testimonials-grid">
+                <div class="testimonial-box">
+                    <p class="testimonial-quote">Avant IA Society, je n'avais aucune idée de comment aborder les entreprises. J'ai commencé à vendre des agents IA après seulement 3 semaines de formation!</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">ML</div>
+                        <div class="testimonial-info">
+                            <div class="testimonial-name">Marie L.</div>
+                            <div class="testimonial-role">Consultante indépendante</div>
+                            <div class="testimonial-result">+2,350€/mois après 3 mois</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-box">
+                    <p class="testimonial-quote">Les templates fournis m'ont fait gagner un temps fou. J'ai signé mon premier client à 1800€ en suivant exactement la méthode enseignée.</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">TK</div>
+                        <div class="testimonial-info">
+                            <div class="testimonial-name">Thomas K.</div>
+                            <div class="testimonial-role">Ancien commercial</div>
+                            <div class="testimonial-result">3 clients B2B en 2 mois</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
     
@@ -343,38 +835,44 @@ gagner jusqu'à 3872€/mois
                 <div class="feature-box">
                     <div class="feature-icon">🧑‍🏫</div>
                     <h3>Guide complet des agents IA</h3>
-                    <p>Module vidéo et Documentation détaillée sur la création, configuration et déploiement d'agents IA pour le marché B2B.</p>
+                    <p>Module vidéo et documentation détaillée pour créer, configurer et déployer des agents IA rentables pour le marché B2B.</p>
                 </div>
                 
                 <div class="feature-box">
                     <div class="feature-icon">📱</div>
-                    <h3>Contact direct par message</h3>
-                    <p>Accès privilégié pour poser toutes vos questions et obtenir une réponse rapide inclus dans votre abonnement.</p>
+                    <h3>Assistance personnalisée</h3>
+                    <p>Accès privilégié pour poser toutes vos questions et obtenir une réponse de nos experts sous 24h, directement dans votre espace membre.</p>
                 </div>
                 
                 <div class="feature-box">
                     <div class="feature-icon">💼</div>
                     <h3>Contacts B2B privilégiés</h3>
-                    <p>Accès à notre réseau de décideurs et d'entreprises à la recherche de solutions IA pour accélérer votre prospection.</p>
+                    <p>Accès à notre réseau de décideurs et d'entreprises à la recherche de solutions IA pour accélérer votre prospection et signer vos premiers clients.</p>
                 </div>
                 
                 <div class="feature-box">
                     <div class="feature-icon">🔴</div>
                     <h3>Lives hebdomadaires</h3>
-                    <p>Sessions en direct avec nos experts pour approfondir vos connaissances et répondre à vos questions techniques.</p>
+                    <p>Sessions en direct avec nos experts pour approfondir vos connaissances, étudier des cas réels et répondre à vos questions techniques.</p>
                 </div>
                 
                 <div class="feature-box">
                     <div class="feature-icon">🤖</div>
                     <h3>Templates d'agents IA</h3>
-                    <p>Bibliothèque de modèles d'agents IA personnalisables prêts à être déployés pour vos clients B2B.</p>
+                    <p>Bibliothèque de modèles d'agents IA prêts à l'emploi que vous pouvez personnaliser et déployer pour vos clients B2B en quelques minutes.</p>
                 </div>
                 
                 <div class="feature-box">
                     <div class="feature-icon">👨‍🏫</div>
                     <h3>Coaching personnalisé</h3>
-                    <p>Accompagnement individuel pour développer votre offre commerciale et maximiser vos chances de vente.</p>
+                    <p>Accompagnement individuel pour développer votre offre commerciale, fixer vos tarifs et maximiser vos chances de conclure des ventes.</p>
                 </div>
+            </div>
+            
+            <div class="guarantee-box">
+                <div class="guarantee-icon">✅</div>
+                <h3 class="guarantee-title">Garantie satisfait ou remboursé</h3>
+                <p>Testez notre plateforme pendant 14 jours. Si vous n'êtes pas satisfait, nous vous remboursons intégralement, sans question.</p>
             </div>
         </div>
     </section>
@@ -382,34 +880,79 @@ gagner jusqu'à 3872€/mois
     <section class="cta" id="join">
         <div class="container">
             <div class="price-box">
-                47€/MOIS - PRIX BLOQUÉ À VIE<br>
-                <span style="font-size: 16px">Sans engagement - Résiliable à tout moment</span>
+                <div class="price-label">OFFRE EXCLUSIVE</div>
+                <div class="price-value">47€/MOIS</div>
+                <div class="price-regular">au lieu de 97€</div>
+                <div class="price-guarantee">Prix bloqué à vie - Sans engagement</div>
             </div>
             
-            <p class="urgency">🚨 Le prix passera à 97€ après 200 inscriptions !</p>
+            <p class="urgency">🚨 ATTENTION: Le prix passera à 97€ après les 200 premières inscriptions!</p>
             
-            <a href="https://buy.stripe.com/fZe6pR1BtcNp2XK3cf" class="btn" target="_blank" onclick="trackTikTokConversion('InitiateCheckout'); return true;">ACHETER MAINTENANT</a>
+            <a href="https://buy.stripe.com/fZe6pR1BtcNp2XK3cf" class="btn" target="_blank" onclick="trackTikTokConversion('InitiateCheckout'); return true;">
+                REJOINDRE MAINTENANT
+                <span class="btn-label">Accès immédiat à tous les contenus</span>
+            </a>
         </div>
     </section>
     
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2025 IA Society</p>
+            <p>&copy; 2025 IA Society - Tous droits réservés</p>
+            <div class="footer-links">
+                <a href="#">Conditions d'utilisation</a>
+                <a href="#">Politique de confidentialité</a>
+                <a href="#">Contact</a>
+            </div>
         </div>
     </footer>
     
     <!-- Script de tracking amélioré pour les interactions -->
     <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // Suivre les clics sur la vidéo
-        const videoFrame = document.querySelector('iframe');
-        if (videoFrame) {
-            videoFrame.addEventListener('click', function() {
+        // Simuler un compte à rebours pour les places restantes
+        const placesCounter = document.getElementById('places-left');
+        if (placesCounter) {
+            const randomDecrement = Math.floor(Math.random() * 3) + 1;
+            let currentValue = parseInt(placesCounter.textContent);
+            
+            setInterval(function() {
+                if (currentValue > 10) {
+                    if (Math.random() > 0.7) {
+                        currentValue -= randomDecrement;
+                        placesCounter.textContent = currentValue;
+                        placesCounter.style.color = '#FF4A4C';
+                        setTimeout(() => {
+                            placesCounter.style.color = '';
+                        }, 1000);
+                    }
+                }
+            }, 30000);
+        }
+        
+        // Améliorer l'interaction avec la vidéo
+        const videoContainer = document.querySelector('.video-container');
+        const playOverlay = document.querySelector('.play-overlay');
+        
+        if (videoContainer && playOverlay) {
+            videoContainer.addEventListener('click', function() {
+                playOverlay.style.display = 'none';
+                
+                // Tracker l'engagement vidéo
                 if (typeof ttq !== 'undefined') {
                     ttq.track('VideoEngagement', {
                         'content_type': 'video',
                         'content_name': 'loom_presentation'
                     });
+                }
+                
+                // Essayer de mettre le focus sur l'iframe pour démarrer la vidéo
+                const videoFrame = this.querySelector('iframe');
+                if (videoFrame) {
+                    try {
+                        videoFrame.focus();
+                    } catch (e) {
+                        console.log('Focus failed:', e);
+                    }
                 }
             });
         }
@@ -451,22 +994,6 @@ gagner jusqu'à 3872€/mois
                 });
             }
         }, 30000);
-    });
-    
-    // Ajout: script pour assurer que la vidéo soit lancée dès que possible
-    document.addEventListener('DOMContentLoaded', function() {
-        // Forcer l'attention sur la vidéo
-        const videoFrame = document.querySelector('iframe');
-        if (videoFrame) {
-            // Essayer de mettre le focus sur la vidéo
-            setTimeout(function() {
-                try {
-                    videoFrame.focus();
-                } catch (e) {
-                    console.log('Focus failed:', e);
-                }
-            }, 1000);
-        }
     });
     </script>
 </body>
