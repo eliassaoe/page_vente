@@ -8,15 +8,28 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     
-    <!-- TikTok Pixel Code Start -->
+    <!-- Meta tags Open Graph pour améliorer le tracking -->
+    <meta property="og:title" content="Confirmation d'achat - IA Society" />
+    <meta property="og:description" content="Félicitations pour votre abonnement à IA Society" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://iasociety.fr/confirmation" />
+    <meta property="og:image" content="https://iasociety.fr/img/logo.png" />
+    
+    <!-- TikTok Pixel Code - Optimisé -->
     <script>
     !function (w, d, t) {
         w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie","holdConsent","revokeConsent","grantConsent"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var r="https://analytics.tiktok.com/i18n/pixel/events.js",o=n&&n.partner;ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=r,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};n=document.createElement("script");n.type="text/javascript",n.async=!0,n.src=r+"?sdkid="+e+"&lib="+t;e=document.getElementsByTagName("script")[0];e.parentNode.insertBefore(n,e)};
+        
+        // Chargement avec ID de pixel
         ttq.load('CV2539RC77UAL9J2PSJG');
+        
+        // IMPORTANT: Activer les cookies first-party pour l'Advanced Matching
+        ttq.enableCookie();
+        
+        // Enregistrement de la visite de page
         ttq.page();
     }(window, document, 'ttq');
     </script>
-    <!-- TikTok Pixel Code End -->
     
     <style>
         :root {
@@ -129,23 +142,34 @@
             </ol>
         </div>
         
-        <a href="https://discord.gg/V2ErC4Aw4r" class="btn">ACCÉDER À LA COMMUNAUTÉ</a>
+        <a href="https://discord.gg/V2ErC4Aw4r" class="btn" id="btn-community">ACCÉDER À LA COMMUNAUTÉ</a>
         
-        <a href="https://calendly.com/hamoureliasse/appel-de-candidature-clone" class="btn" style="margin-left: 15px; background-color: #37ca37;">RÉSERVER MON APPEL</a>
+        <a href="https://calendly.com/hamoureliasse/appel-de-candidature-clone" class="btn" id="btn-call" style="margin-left: 15px; background-color: #37ca37;">RÉSERVER MON APPEL</a>
     </div>
     
-    <!-- Script pour envoyer l'événement de conversion CompletePayment à TikTok -->
+    <!-- Script optimisé pour le tracking des conversions et interactions -->
     <script>
-        // Utiliser ttq.ready au lieu de setTimeout
-        window.addEventListener('DOMContentLoaded', (event) => {
+    // Fonction pour récupérer les paramètres d'URL
+    function getUrlParameter(name) {
+        name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+        var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+        var results = regex.exec(location.search);
+        return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+    }
+    
+    // Passer l'événement de conversion à TikTok
+    document.addEventListener('DOMContentLoaded', function() {
+        // Attendre que ttq soit chargé
+        if (typeof ttq !== 'undefined') {
             ttq.ready(function() {
                 try {
-                    // Créer des identifiants uniques
-                    const eventId = "completepayment_" + Date.now();
-                    const transactionId = "ORDER_" + Date.now();
+                    // Récupérer les paramètres potentiels
+                    const sessionId = getUrlParameter('session_id');
+                    const orderId = getUrlParameter('order_id');
+                    const transactionId = sessionId || orderId || "ORDER_" + Date.now();
                     
-                    // Version avec l'ancienne structure pour la compatibilité
-                    ttq.track('CompletePayment', {
+                    // Envoyer l'événement Purchase (standard pour TikTok)
+                    ttq.track('Purchase', {
                         "contents": [
                             {
                                 "content_id": "ia-society-membership",
@@ -153,36 +177,41 @@
                                 "content_name": "IA Society Membership"
                             }
                         ],
-                        "value": 49,
-                        "currency": "EUR"
-                    }, {
-                        "event_id": eventId
-                    });
-                    
-                    // Version avec la nouvelle structure pour l'API Events (améliorée)
-                    ttq.track('CompletePayment', {
-                        "contents": [
-                            {
-                                "content_id": "ia-society-membership",
-                                "content_type": "product",
-                                "content_name": "IA Society Membership"
-                            }
-                        ],
-                        "value": 49,
+                        "value": 47,
                         "currency": "EUR",
                         "quantity": 1,
                         "purchase_type": "subscription",
-                        "transaction_id": transactionId,
-                        "event_id": eventId,
-                        "url": window.location.href
+                        "transaction_id": transactionId
                     });
                     
-                    console.log("TikTok CompletePayment event successfully sent with ID: " + eventId);
+                    console.log("TikTok Purchase event sent with transaction ID: " + transactionId);
+                    
+                    // Suivre également le clic sur les boutons
+                    const communityButton = document.getElementById('btn-community');
+                    if (communityButton) {
+                        communityButton.addEventListener('click', function() {
+                            ttq.track('ClickButton', {
+                                'content_type': 'community',
+                                'content_name': 'join_discord'
+                            });
+                        });
+                    }
+                    
+                    const callButton = document.getElementById('btn-call');
+                    if (callButton) {
+                        callButton.addEventListener('click', function() {
+                            ttq.track('ClickButton', {
+                                'content_type': 'call',
+                                'content_name': 'book_onboarding'
+                            });
+                        });
+                    }
                 } catch (e) {
-                    console.error("Error sending TikTok CompletePayment event: ", e);
+                    console.error("Error sending TikTok conversion event: ", e);
                 }
             });
-        });
+        }
+    });
     </script>
 </body>
 </html>
