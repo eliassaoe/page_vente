@@ -49,19 +49,64 @@
         ttq.page();
     }(window, document, 'ttq');
     </script>
+
+    <!-- Nouveau code pour Advanced Matching sur page load -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Get stored user identifiers from localStorage if available
+        const storedEmail = localStorage.getItem('user_email') || '';
+        const storedPhone = localStorage.getItem('user_phone') || '';
+        const storedExternalId = localStorage.getItem('user_external_id') || generateExternalId();
+        
+        // If we don't have an external ID stored, generate and save one
+        if (!localStorage.getItem('user_external_id')) {
+            localStorage.setItem('user_external_id', storedExternalId);
+        }
+        
+        // Always identify with whatever data we have, even if fields are empty
+        ttq.identify({
+            email: storedEmail,
+            phone_number: storedPhone,
+            external_id: storedExternalId
+        });
+        
+        // Also update the ViewContent event with user data
+        ttq.track('ViewContent', {
+            'content_type': 'product',
+            'content_name': 'ia_society_masterclass',
+            'email': storedEmail, 
+            'phone_number': storedPhone,
+            'external_id': storedExternalId
+        });
+    });
+
+    // Helper function to generate a persistent external ID
+    function generateExternalId() {
+        return 'user_' + Math.random().toString(36).substring(2, 15) + 
+               Math.random().toString(36).substring(2, 15);
+    }
+    </script>
     
     <!-- Fonction améliorée pour l'Advanced Matching TikTok -->
     <script>
     function enhanceTikTokMatching(userData) {
         if (typeof ttq === 'undefined') return;
         
+        // Generate external ID if not already present
+        if (!localStorage.getItem('user_external_id')) {
+            const externalId = 'user_' + Math.random().toString(36).substring(2, 15) + 
+                            Math.random().toString(36).substring(2, 15);
+            localStorage.setItem('user_external_id', externalId);
+        }
+        
+        // Get the external ID
+        const externalId = localStorage.getItem('user_external_id');
+        
+        // Always pass all available identifiers
         ttq.identify({
-            email: userData.email,
-            phone_number: userData.phone,
-            // Vous pouvez ajouter d'autres données si disponibles
-            // external_id: userId,
-            // first_name: firstName,
-            // last_name: lastName,
+            email: userData.email || '',
+            phone_number: userData.phone || '',
+            external_id: externalId || ''
         });
         
         console.log("Advanced Matching TikTok activé");
@@ -75,13 +120,22 @@
         
         ttq.ready(function() {
             try {
-                // Créer un ID d'événement uniforme
+                // Get all stored identifiers
+                const email = localStorage.getItem('user_email') || '';
+                const phone = localStorage.getItem('user_phone') || '';
+                const externalId = localStorage.getItem('user_external_id') || '';
+                
+                // Create event ID
                 const eventId = eventType.toLowerCase() + "_" + Date.now();
                 
+                // Track with all identifiers
                 ttq.track(eventType, {
                     "content_type": "form_submission",
                     "content_name": eventName || "lead_capture",
-                    "event_id": eventId
+                    "event_id": eventId,
+                    "email": email,
+                    "phone_number": phone,
+                    "external_id": externalId
                 });
                 
                 console.log("TikTok event tracked: " + eventType + " with ID: " + eventId);
@@ -723,9 +777,17 @@
             // Tracker le temps passé sur la page
             setTimeout(function() {
                 if (typeof ttq !== 'undefined') {
+                    // Get stored user identifiers
+                    const email = localStorage.getItem('user_email') || '';
+                    const phone = localStorage.getItem('user_phone') || '';
+                    const externalId = localStorage.getItem('user_external_id') || '';
+                    
                     ttq.track('TimeOnPage', {
                         'content_type': 'engagement',
-                        'content_name': '30_seconds'
+                        'content_name': '30_seconds',
+                        'email': email,
+                        'phone_number': phone,
+                        'external_id': externalId
                     });
                 }
             }, 30000);
@@ -739,9 +801,17 @@
                 
                 if (!hasTracked50 && scrolled > 50) {
                     if (typeof ttq !== 'undefined') {
+                        // Get stored user identifiers
+                        const email = localStorage.getItem('user_email') || '';
+                        const phone = localStorage.getItem('user_phone') || '';
+                        const externalId = localStorage.getItem('user_external_id') || '';
+                        
                         ttq.track('ContentView', {
                             'content_type': 'scroll_depth',
-                            'content_name': '50_percent'
+                            'content_name': '50_percent',
+                            'email': email,
+                            'phone_number': phone,
+                            'external_id': externalId
                         });
                     }
                     hasTracked50 = true;
@@ -749,9 +819,17 @@
                 
                 if (!hasTracked90 && scrolled > 90) {
                     if (typeof ttq !== 'undefined') {
+                        // Get stored user identifiers
+                        const email = localStorage.getItem('user_email') || '';
+                        const phone = localStorage.getItem('user_phone') || '';
+                        const externalId = localStorage.getItem('user_external_id') || '';
+                        
                         ttq.track('ContentView', {
                             'content_type': 'scroll_depth',
-                            'content_name': '90_percent'
+                            'content_name': '90_percent',
+                            'email': email,
+                            'phone_number': phone,
+                            'external_id': externalId
                         });
                     }
                     hasTracked90 = true;
@@ -831,8 +909,16 @@
             if (!window.buttonClicked) {
                 // TikTok - événement de clic sur le bouton
                 if (typeof ttq !== 'undefined') {
+                    // Get stored user identifiers
+                    const email = localStorage.getItem('user_email') || '';
+                    const phone = localStorage.getItem('user_phone') || '';
+                    const externalId = localStorage.getItem('user_external_id') || '';
+                    
                     ttq.track('ClickButton', {
-                        'content_name': 'masterclass_button'
+                        'content_name': 'masterclass_button',
+                        'email': email,
+                        'phone_number': phone,
+                        'external_id': externalId
                     });
                 }
                 
@@ -901,10 +987,23 @@
             submitBtn.classList.add('loading');
             submitBtn.disabled = true;
             
-            // Préparer les données à envoyer (format simplifié)
+            // Generate external ID if not already present
+            if (!localStorage.getItem('user_external_id')) {
+                const externalId = 'user_' + Math.random().toString(36).substring(2, 15) + 
+                                Math.random().toString(36).substring(2, 15);
+                localStorage.setItem('user_external_id', externalId);
+            }
+            
+            // Store user data
+            localStorage.setItem('user_email', sanitizedEmail);
+            localStorage.setItem('user_phone', fullPhoneNumber);
+            localStorage.setItem('registration_date', new Date().toISOString());
+            
+            // Préparer les données à envoyer
             const formData = {
                 email: sanitizedEmail,
-                phone: fullPhoneNumber
+                phone: fullPhoneNumber,
+                external_id: localStorage.getItem('user_external_id')
             };
             
             // Activer l'Advanced Matching TikTok
@@ -920,11 +1019,6 @@
                     'event_label': 'masterclass_registration'
                 });
             }
-            
-            // Stocker les données dans localStorage
-            localStorage.setItem('user_email', sanitizedEmail);
-            localStorage.setItem('user_phone', fullPhoneNumber);
-            localStorage.setItem('registration_date', new Date().toISOString());
             
             // Envoyer les données au webhook
             try {
