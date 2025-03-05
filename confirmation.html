@@ -42,6 +42,43 @@
         ttq.page();
     }(window, document, 'ttq');
     </script>
+
+    <!-- Nouveau code pour Advanced Matching sur page load -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Get stored user identifiers from localStorage if available
+        const storedEmail = localStorage.getItem('user_email') || '';
+        const storedPhone = localStorage.getItem('user_phone') || '';
+        const storedExternalId = localStorage.getItem('user_external_id') || generateExternalId();
+        
+        // If we don't have an external ID stored, generate and save one
+        if (!localStorage.getItem('user_external_id')) {
+            localStorage.setItem('user_external_id', storedExternalId);
+        }
+        
+        // Always identify with whatever data we have, even if fields are empty
+        ttq.identify({
+            email: storedEmail,
+            phone_number: storedPhone,
+            external_id: storedExternalId
+        });
+        
+        // Also update the ViewContent event with user data
+        ttq.track('ViewContent', {
+            'content_type': 'purchase_confirmation',
+            'content_name': 'ia_society_membership',
+            'email': storedEmail, 
+            'phone_number': storedPhone,
+            'external_id': storedExternalId
+        });
+    });
+
+    // Helper function to generate a persistent external ID
+    function generateExternalId() {
+        return 'user_' + Math.random().toString(36).substring(2, 15) + 
+               Math.random().toString(36).substring(2, 15);
+    }
+    </script>
     
     <style>
         :root {
@@ -159,7 +196,7 @@
         <a href="https://calendly.com/hamoureliasse/appel-de-candidature-clone" class="btn" id="btn-call" style="margin-left: 15px; background-color: #37ca37;">RÉSERVER MON APPEL</a>
     </div>
     
-    <!-- Script de tracking de conversion avec Advanced Matching -->
+    <!-- Script de tracking de conversion amélioré pour TikTok -->
     <script>
     // Fonction pour récupérer les paramètres d'URL
     function getUrlParameter(name) {
@@ -169,140 +206,100 @@
         return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
     }
     
-    // Récupération des informations client depuis Stripe ou localStorage
+    // Récupération des informations client depuis localStorage ou l'URL
     function getCustomerInfo() {
         // Essayer d'abord de récupérer depuis l'URL (si Stripe les passe)
-        const email = getUrlParameter('customer_email');
-        const phone = getUrlParameter('customer_phone');
-        const externalId = getUrlParameter('customer_id');
+        const urlEmail = getUrlParameter('customer_email');
+        const urlPhone = getUrlParameter('customer_phone');
+        const urlExternalId = getUrlParameter('customer_id');
         
-        // Si les données ne sont pas dans l'URL, essayer localStorage
-        // (ces données auraient dû être sauvegardées lors du passage en caisse)
-        const storedEmail = localStorage.getItem('customer_email');
-        const storedPhone = localStorage.getItem('customer_phone');
-        const storedId = localStorage.getItem('customer_id');
+        // Récupérer depuis localStorage (stockées lors du form ou de la visite précédente)
+        const storedEmail = localStorage.getItem('user_email');
+        const storedPhone = localStorage.getItem('user_phone');
+        const storedExternalId = localStorage.getItem('user_external_id');
+        
+        // Générer un ID externe si nécessaire
+        if (!storedExternalId && !urlExternalId) {
+            const newExternalId = 'user_' + Math.random().toString(36).substring(2, 15) + 
+                               Math.random().toString(36).substring(2, 15);
+            localStorage.setItem('user_external_id', newExternalId);
+        }
         
         return {
-            email: email || storedEmail || '',
-            phone: phone || storedPhone || '',
-            external_id: externalId || storedId || ''
+            email: urlEmail || storedEmail || '',
+            phone: urlPhone || storedPhone || '',
+            external_id: urlExternalId || storedExternalId || localStorage.getItem('user_external_id') || ''
         };
     }
     
-    // Génération d'un hash SHA-256 (pour les données sensibles)
-    async function sha256(message) {
-        // Encode as UTF-8
-        const msgBuffer = new TextEncoder().encode(message);                    
-        // Hash the message
-        const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
-        // Convert ArrayBuffer to Array
-        const hashArray = Array.from(new Uint8Array(hashBuffer));
-        // Convert bytes to hex string
-        const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-        return hashHex;
-    }
-    
-    // Fonction pour initialiser l'Advanced Matching
-    async function initAdvancedMatching() {
-        const customerInfo = getCustomerInfo();
-        
-        // Si nous avons des données client
-        if (customerInfo.email || customerInfo.phone || customerInfo.external_id) {
-            try {
-                const identifyData = {};
-                
-                // Hacher l'email si disponible (recommandé pour la confidentialité)
-                if (customerInfo.email) {
-                    identifyData.email = await sha256(customerInfo.email.toLowerCase().trim());
-                }
-                
-                // Hacher le téléphone si disponible (recommandé pour la confidentialité)
-                if (customerInfo.phone) {
-                    // Nettoyer le numéro de téléphone (enlever caractères non numériques)
-                    const cleanPhone = customerInfo.phone.replace(/\D/g, '');
-                    identifyData.phone_number = await sha256(cleanPhone);
-                }
-                
-                // Ajouter l'ID externe si disponible
-                if (customerInfo.external_id) {
-                    identifyData.external_id = customerInfo.external_id;
-                }
-                
-                // Activer l'Advanced Matching
-                if (typeof ttq !== 'undefined') {
-                    console.log("Initialisation de l'Advanced Matching avec:", identifyData);
-                    ttq.identify(identifyData);
-                }
-            } catch (e) {
-                console.error("Erreur lors de l'initialisation de l'Advanced Matching:", e);
-            }
-        } else {
-            console.warn("Aucune donnée client disponible pour l'Advanced Matching");
-            
-            // Si aucune donnée n'est disponible, utiliser uniquement l'ID
-            if (typeof ttq !== 'undefined') {
-                ttq.identify({
-                    external_id: "purchase_" + Date.now()
-                });
-            }
-        }
-    }
-
-    // Exécution immédiate du tracking de conversion avec Advanced Matching
-    (async function() {
+    // Exécution immédiate du tracking de conversion
+    document.addEventListener('DOMContentLoaded', function() {
         try {
-            // Initialiser l'Advanced Matching d'abord
-            await initAdvancedMatching();
+            // Récupérer les informations client
+            const customerInfo = getCustomerInfo();
             
-            // Petite temporisation pour s'assurer que ttq est chargé
-            setTimeout(function() {
-                if (typeof ttq !== 'undefined') {
-                    // Récupérer les paramètres de transaction
-                    const sessionId = getUrlParameter('session_id');
-                    const orderId = getUrlParameter('order_id');
-                    const transactionId = sessionId || orderId || "ORDER_" + Date.now();
-                    
-                    console.log("Envoi de l'événement Purchase à TikTok...");
-                    
-                    // Envoi de l'événement Purchase
-                    ttq.track('Purchase', {
-                        "contents": [{
-                            "content_id": "ia-society-membership",
-                            "content_type": "product", 
-                            "content_name": "IA Society Membership"
-                        }],
-                        "value": 47,
-                        "currency": "EUR",
-                        "quantity": 1,
-                        "purchase_type": "subscription",
-                        "transaction_id": transactionId
-                    });
-                    
-                    // Envoi de l'événement CompletePayment
-                    ttq.track('CompletePayment', {
-                        "contents": [{
-                            "content_id": "ia-society-membership",
-                            "content_type": "product", 
-                            "content_name": "IA Society Membership"
-                        }],
-                        "value": 47,
-                        "currency": "EUR",
-                        "quantity": 1,
-                        "transaction_id": transactionId
-                    });
-                    
-                    console.log("Événements de conversion envoyés avec succès");
-                } else {
-                    console.error("TikTok Pixel (ttq) n'est pas chargé");
-                }
-            }, 1000);
+            // S'assurer que ttq est chargé
+            ttq.ready(function() {
+                // Récupérer les paramètres de transaction
+                const sessionId = getUrlParameter('session_id');
+                const orderId = getUrlParameter('order_id');
+                const transactionId = sessionId || orderId || "ORDER_" + Date.now();
+                
+                console.log("Envoi de l'événement CompletePayment à TikTok...");
+                
+                // Envoi de l'événement CompletePayment avec tous les identifiants utilisateur
+                ttq.track('CompletePayment', {
+                    "contents": [{
+                        "content_id": "ia-society-membership",
+                        "content_type": "product", 
+                        "content_name": "IA Society Membership"
+                    }],
+                    "value": 47,
+                    "currency": "EUR",
+                    "quantity": 1,
+                    "purchase_type": "subscription",
+                    "transaction_id": transactionId,
+                    "email": customerInfo.email,
+                    "phone_number": customerInfo.phone,
+                    "external_id": customerInfo.external_id
+                });
+                
+                // Envoi de l'événement Purchase également (pour assurer la compatibilité)
+                ttq.track('Purchase', {
+                    "contents": [{
+                        "content_id": "ia-society-membership",
+                        "content_type": "product", 
+                        "content_name": "IA Society Membership"
+                    }],
+                    "value": 47,
+                    "currency": "EUR",
+                    "quantity": 1,
+                    "purchase_type": "subscription",
+                    "transaction_id": transactionId,
+                    "email": customerInfo.email,
+                    "phone_number": customerInfo.phone,
+                    "external_id": customerInfo.external_id
+                });
+                
+                console.log("Événements de conversion envoyés avec succès");
+                
+                // Mettre à jour l'Advanced Matching
+                ttq.identify({
+                    email: customerInfo.email,
+                    phone_number: customerInfo.phone,
+                    external_id: customerInfo.external_id
+                });
+            });
         } catch (e) {
             console.error("Erreur pendant le tracking de conversion:", e);
         }
-    })();
+    });
 
     // Gestion des clics sur les boutons
     document.addEventListener('DOMContentLoaded', function() {
+        // Récupérer les informations client pour le tracking des boutons
+        const customerInfo = getCustomerInfo();
+        
         // Suivre les clics sur le bouton Communauté
         const communityButton = document.getElementById('btn-community');
         if (communityButton) {
@@ -310,7 +307,10 @@
                 if (typeof ttq !== 'undefined') {
                     ttq.track('ClickButton', {
                         'content_type': 'community',
-                        'content_name': 'join_discord'
+                        'content_name': 'join_discord',
+                        'email': customerInfo.email,
+                        'phone_number': customerInfo.phone,
+                        'external_id': customerInfo.external_id
                     });
                 }
             });
@@ -323,7 +323,10 @@
                 if (typeof ttq !== 'undefined') {
                     ttq.track('ClickButton', {
                         'content_type': 'call',
-                        'content_name': 'book_onboarding'
+                        'content_name': 'book_onboarding',
+                        'email': customerInfo.email,
+                        'phone_number': customerInfo.phone,
+                        'external_id': customerInfo.external_id
                     });
                 }
             });
