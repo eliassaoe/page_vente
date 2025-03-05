@@ -26,6 +26,9 @@
         // IMPORTANT: Activer les cookies first-party pour l'Advanced Matching
         ttq.enableCookie();
         
+        // Activer le mode debug temporairement pour vérifier le fonctionnement
+        ttq.debug(true);
+        
         // Enregistrement de la visite de page
         ttq.page();
     }(window, document, 'ttq');
@@ -147,7 +150,7 @@
         <a href="https://calendly.com/hamoureliasse/appel-de-candidature-clone" class="btn" id="btn-call" style="margin-left: 15px; background-color: #37ca37;">RÉSERVER MON APPEL</a>
     </div>
     
-    <!-- Script optimisé pour le tracking des conversions et interactions -->
+    <!-- Script de tracking de conversion - CORRIGÉ -->
     <script>
     // Fonction pour récupérer les paramètres d'URL
     function getUrlParameter(name) {
@@ -156,58 +159,77 @@
         var results = regex.exec(location.search);
         return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
     }
-    
-    // Passer l'événement de conversion à TikTok
+
+    // CORRECTION: Exécution immédiate pour le tracking de conversion
+    (function() {
+        // Petite temporisation pour s'assurer que ttq est chargé
+        setTimeout(function() {
+            if (typeof ttq !== 'undefined') {
+                // Récupérer les paramètres potentiels
+                const sessionId = getUrlParameter('session_id');
+                const orderId = getUrlParameter('order_id');
+                const transactionId = sessionId || orderId || "ORDER_" + Date.now();
+                
+                console.log("Envoi de l'événement Purchase à TikTok...");
+                
+                // Envoi direct de l'événement Purchase
+                ttq.track('Purchase', {
+                    "contents": [{
+                        "content_id": "ia-society-membership",
+                        "content_type": "product", 
+                        "content_name": "IA Society Membership"
+                    }],
+                    "value": 47,
+                    "currency": "EUR",
+                    "quantity": 1,
+                    "purchase_type": "subscription",
+                    "transaction_id": transactionId
+                });
+                
+                // Également envoyer CompletePayment pour la compatibilité
+                ttq.track('CompletePayment', {
+                    "contents": [{
+                        "content_id": "ia-society-membership",
+                        "content_type": "product", 
+                        "content_name": "IA Society Membership"
+                    }],
+                    "value": 47,
+                    "currency": "EUR",
+                    "quantity": 1,
+                    "transaction_id": transactionId
+                });
+                
+                console.log("Événements de conversion envoyés avec ID: " + transactionId);
+            } else {
+                console.error("TikTok Pixel (ttq) n'est pas chargé");
+            }
+        }, 1000); // Attendre 1 seconde pour s'assurer que ttq est chargé
+    })();
+
+    // Gestion des clics sur les boutons
     document.addEventListener('DOMContentLoaded', function() {
-        // Attendre que ttq soit chargé
-        if (typeof ttq !== 'undefined') {
-            ttq.ready(function() {
-                try {
-                    // Récupérer les paramètres potentiels
-                    const sessionId = getUrlParameter('session_id');
-                    const orderId = getUrlParameter('order_id');
-                    const transactionId = sessionId || orderId || "ORDER_" + Date.now();
-                    
-                    // Envoyer l'événement Purchase (standard pour TikTok)
-                    ttq.track('Purchase', {
-                        "contents": [
-                            {
-                                "content_id": "ia-society-membership",
-                                "content_type": "product",
-                                "content_name": "IA Society Membership"
-                            }
-                        ],
-                        "value": 47,
-                        "currency": "EUR",
-                        "quantity": 1,
-                        "purchase_type": "subscription",
-                        "transaction_id": transactionId
+        // Suivre les clics sur le bouton Communauté
+        const communityButton = document.getElementById('btn-community');
+        if (communityButton) {
+            communityButton.addEventListener('click', function() {
+                if (typeof ttq !== 'undefined') {
+                    ttq.track('ClickButton', {
+                        'content_type': 'community',
+                        'content_name': 'join_discord'
                     });
-                    
-                    console.log("TikTok Purchase event sent with transaction ID: " + transactionId);
-                    
-                    // Suivre également le clic sur les boutons
-                    const communityButton = document.getElementById('btn-community');
-                    if (communityButton) {
-                        communityButton.addEventListener('click', function() {
-                            ttq.track('ClickButton', {
-                                'content_type': 'community',
-                                'content_name': 'join_discord'
-                            });
-                        });
-                    }
-                    
-                    const callButton = document.getElementById('btn-call');
-                    if (callButton) {
-                        callButton.addEventListener('click', function() {
-                            ttq.track('ClickButton', {
-                                'content_type': 'call',
-                                'content_name': 'book_onboarding'
-                            });
-                        });
-                    }
-                } catch (e) {
-                    console.error("Error sending TikTok conversion event: ", e);
+                }
+            });
+        }
+        
+        // Suivre les clics sur le bouton Appel
+        const callButton = document.getElementById('btn-call');
+        if (callButton) {
+            callButton.addEventListener('click', function() {
+                if (typeof ttq !== 'undefined') {
+                    ttq.track('ClickButton', {
+                        'content_type': 'call',
+                        'content_name': 'book_onboarding'
+                    });
                 }
             });
         }
