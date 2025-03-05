@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>IA Society - Masterclass Gratuite sur les Agents IA</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Intl Tel Input pour le sélecteur de pays avec drapeaux -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.13/css/intlTelInput.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.13/js/intlTelInput.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.13/js/utils.js"></script>
+    
+    <!-- Meta tags Open Graph pour améliorer le tracking -->
+    <meta property="og:title" content="IA Society - Masterclass Gratuite sur les Agents IA" />
+    <meta property="og:description" content="Apprenez à gagner jusqu'à 3872€/mois avec les agents IA - Inscrivez-vous à notre masterclass gratuite" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://iasociety.fr" />
+    <meta property="og:image" content="https://iasociety.fr/img/logo.png" />
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-56VLESRL48"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-56VLESRL48');
+    </script>
+    
+    <!-- TikTok Pixel Code - Optimisé -->
+    <script>
+    !function (w, d, t) {
+        w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie","holdConsent","revokeConsent","grantConsent"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var r="https://analytics.tiktok.com/i18n/pixel/events.js",o=n&&n.partner;ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=r,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};n=document.createElement("script");n.type="text/javascript",n.async=!0,n.src=r+"?sdkid="+e+"&lib="+t;e=document.getElementsByTagName("script")[0];e.parentNode.insertBefore(n,e)};
+        
+        // Chargement avec ID de pixel
+        ttq.load('CV2539RC77UAL9J2PSJG');
+        
+        // IMPORTANT: Activer les cookies first-party pour l'Advanced Matching
+        ttq.enableCookie();
+        
+        // Enregistrement de la visite de page
+        ttq.page();
+    }(window, document, 'ttq');
+    </script>
+    
+    <!-- Fonction optimisée de tracking TikTok -->
+    <script>
+    function trackTikTokEvent(eventType, eventName) {
+        if (typeof ttq === 'undefined') return;
+        
+        ttq.ready(function() {
+            try {
+                // Créer un ID d'événement uniforme
+                const eventId = eventType.toLowerCase() + "_" + Date.now();
+                
+                ttq.track(eventType, {
+                    "content_type": "form_submission",
+                    "content_name": eventName || "lead_capture",
+                    "event_id": eventId
+                });
+                
+                console.log("TikTok event tracked: " + eventType + " with ID: " + eventId);
+            } catch (e) {
+                console.error("Error tracking TikTok event: ", e);
+            }
+        });
+    }
+    </script>
+    
+    <style>
+        :root {
+            --primary: #BC0003;
+            --secondary: #910002;
+            --highlight: #FF4A4C;
+            --black: #000000;
+            --white: #ffffff;
+            --gray-light: #f0f0f0;
+            --gray-dark: #333333;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--white);
+            background-color: var(--black);
+            line-height: 1.5;
+            font-size: 16px;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 550px;
+            margin: 0 auto;
+            padding: 0 20px;
+            flex: 1;
+        }
+        
+        .header {
+            text-align: center;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            position: relative;
+            z-index: 10;
+        }
+        
+        .logo {
+            max-width: 160px;
+            font-weight: 700;
+            font-size: 24px;
+            background: linear-gradient(90deg, var(--white) 0%, var(--highlight) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+        }
+        
+        .main {
+            padding: 25px 0;
+            text-align: center;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .main-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 28px;
+            line-height: 1.3;
+            margin-bottom: 20px;
+            padding: 0 10px;
+            letter-spacing: -0.5px;
+        }
+        
+        .highlight {
+            color: var(--highlight);
+            font-weight: 700;
+            display: inline;
+        }
+        
+        .main-subtitle {
+            font-size: 18px;
+            margin-bottom: 30px;
+            color: #C9D8E0;
+            font-weight: 500;
+        }
+        
+        .bullet-points {
+            text-align: left;
+            margin: 0 auto 30px;
+            max-width: 400px;
+        }
+        
+        .bullet-points li {
+            padding-left: 25px;
+            margin-bottom: 12px;
+            position: relative;
+        }
+        
+        .bullet-points li:before {
+            content: "✓";
+            color: var(--highlight);
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+        
+        .form-card {
+            background-color: rgba(255, 255, 255, 0.07);
+            border-radius: 15px;
+            padding: 30px 20px;
+            margin-bottom: 30px;
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+            position: relative;
+            z-index: 5;
+        }
+        
+        .form-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-label {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 8px;
+            text-align: left;
+            font-weight: 500;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 18px;
+            background-color: rgba(255, 255, 255, 0.08);
+            border: 2px solid rgba(255, 255, 255, 0.25);
+            border-radius: 10px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 17px;
+            color: var(--white);
+            transition: border-color 0.3s, box-shadow 0.3s;
+            margin-bottom: 5px;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--highlight);
+            box-shadow: 0 0 0 3px rgba(255, 74, 76, 0.25);
+        }
+        
+        .form-input::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+        
+        .submit-btn {
+            display: block;
+            width: 100%;
+            background: linear-gradient(135deg, var(--highlight) 0%, var(--primary) 100%);
+            color: var(--white);
+            font-weight: 700;
+            font-size: 18px;
+            text-transform: uppercase;
+            padding: 20px 15px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-top: 25px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+            transition: transform 0.3s, box-shadow 0.3s;
+            -webkit-appearance: none;
+            position: relative;
+            overflow: hidden;
+            letter-spacing: 0.5px;
+        }
+        
+        .submit-btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+            transition: opacity 0.3s;
+            opacity: 0;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.4);
+        }
+        
+        .submit-btn:hover::after {
+            opacity: 1;
+        }
+        
+        .submit-btn:active {
+            transform: translateY(1px);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        .privacy-text {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.6);
+            margin-top: 15px;
+            text-align: center;
+        }
+        
+        .privacy-text a {
+            color: var(--highlight);
+            text-decoration: none;
+        }
+        
+        .privacy-text a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Styles pour le sélecteur de pays */
+        .phone-input-container {
+            position: relative;
+        }
+        
+        .phone-input {
+            padding-left: 90px !important;
+            text-align: left !important;
+            direction: ltr;
+        }
+        
+        .iti {
+            width: 100%;
+            display: block;
+            position: relative;
+        }
+        
+        .iti--allow-dropdown input, 
+        .iti--allow-dropdown input[type=tel] {
+            padding-left: 90px;
+            text-align: left;
+        }
+        
+        .iti__flag-container {
+            z-index: 10;
+        }
+        
+        .iti__country-list {
+            background-color: var(--black);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: var(--white);
+            max-height: 200px;
+            max-width: 350px;
+        }
+        
+        .iti__country {
+            padding: 10px 15px;
+        }
+        
+        .iti__country:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .iti__country-name {
+            color: var(--white);
+            font-size: 14px;
+        }
+        
+        .iti__dial-code {
+            color: var(--highlight);
+        }
+        
+        .error-message {
+            color: var(--highlight);
+            font-size: 13px;
+            margin-top: 5px;
+            text-align: left;
+            min-height: 20px;
+            font-weight: 500;
+        }
+        
+        .footer {
+            padding: 20px 0;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 14px;
+            margin-top: 20px;
+        }
+        
+        .footer-links {
+            margin-top: 10px;
+        }
+        
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            margin: 0 10px;
+            font-size: 12px;
+        }
+        
+        .footer-links a:hover {
+            color: var(--white);
+            text-decoration: underline;
+        }
+        
+        /* Loader spinner */
+        .loader {
+            border: 3px solid rgba(255, 255, 255, 0.2);
+            border-top: 3px solid var(--highlight);
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+            display: none;
+        }
+        
+        .submit-btn.loading .loader {
+            display: inline-block;
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Animations de la page */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .main-title, .main-subtitle, .bullet-points, .form-card {
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+        
+        .main-subtitle {
+            animation-delay: 0.2s;
+        }
+        
+        .bullet-points {
+            animation-delay: 0.3s;
+        }
+        
+        .form-card {
+            animation-delay: 0.4s;
+        }
+        
+        /* Optimisation mobile */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 15px;
+            }
+            
+            .main {
+                padding: 15px 0;
+            }
+            
+            .main-title {
+                font-size: 24px;
+                margin-bottom: 15px;
+            }
+            
+            .main-subtitle {
+                font-size: 16px;
+                margin-bottom: 20px;
+                margin-top: 25px;
+            }
+            
+            .bullet-points {
+                font-size: 15px;
+            }
+            
+            .form-card {
+                padding: 25px 18px;
+                margin-top: 15px;
+            }
+            
+            .form-title {
+                font-size: 20px;
+                margin-bottom: 22px;
+            }
+            
+            .form-label {
+                font-size: 16px;
+                margin-bottom: 10px;
+            }
+            
+            .form-input {
+                padding: 18px 15px;
+                font-size: 18px;
+                margin-bottom: 18px;
+            }
+            
+            .submit-btn {
+                font-size: 18px;
+                padding: 18px;
+                margin-top: 20px;
+            }
+            
+            /* Augmenter la taille des champs sur mobile */
+            input[type="email"], input[type="tel"] {
+                font-size: 16px !important; /* Empêche le zoom sur iOS */
+                height: 60px;
+            }
+        }
+        
+        /* Optimisations spécifiques pour les drapeaux et le sélecteur de pays */
+        .iti__flag {
+            background-image: url("https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.13/img/flags.png");
+        }
+
+        @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+            .iti__flag {
+                background-image: url("https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.13/img/flags@2x.png");
+            }
+        }
+        
+        .iti__selected-flag {
+            padding: 0 12px 0 15px;
+        }
+        
+        .iti__flag-container:hover .iti__selected-flag {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .iti__country-list {
+            width: 350px;
+            max-width: 100vw;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h2 class="logo">IA Society</h2>
+        </div>
+    </header>
+    
+    <main class="main">
+        <div class="container">
+            <h1 class="main-title">
+                Découvrez comment gagner <span class="highlight">jusqu'à 3872€/mois</span> avec les agents IA
+            </h1>
+            
+            <div class="form-card">
+                <h3 class="form-title">Accédez à la masterclass gratuite</h3>
+                
+                <form id="leadForm" onsubmit="return handleFormSubmit(event)">
+                    <div class="form-group">
+                        <label for="email" class="form-label">Votre email :</label>
+                        <input type="email" id="email" name="email" class="form-input" placeholder="Entrez votre email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone" class="form-label">Votre numéro de téléphone :</label>
+                        <div class="phone-input-container">
+                            <input type="tel" id="phone" name="phone" class="form-input phone-input" placeholder="Entrez votre numéro de téléphone" required>
+                        </div>
+                        <div id="phone-error-msg" class="error-message"></div>
+                    </div>
+                    
+                    <button type="submit" id="submitBtn" class="submit-btn" onclick="trackButtonClick()">
+                        <span class="loader"></span>
+                        ACCÉDER À LA MASTERCLASS
+                    </button>
+                </form>
+                
+                <p class="privacy-text">
+                    En soumettant ce formulaire, vous acceptez notre <a href="https://eliassaoe.github.io/page_vente/confidentialite" target="_blank">politique de confidentialité</a>.
+                </p>
+            </div>
+            
+            <p class="main-subtitle">
+                Apprenez à créer, vendre et monétiser des agents IA pour les entreprises
+            </p>
+            
+            <ul class="bullet-points">
+                <li>Apprenez à créer et configurer des agents IA sans compétences techniques</li>
+                <li>Découvrez comment trouver et convaincre vos premiers clients B2B</li>
+                <li>Maîtrisez une compétence en forte demande sur le marché</li>
+                <li>Obtenez une source de revenus récurrents et passive</li>
+            </ul>
+        </div>
+    </main>
+    
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 IA Society - Tous droits réservés</p>
+            <div class="footer-links">
+                <a href="https://eliassaoe.github.io/page_vente/conditions" target="_blank">Conditions d'utilisation</a>
+                <a href="https://eliassaoe.github.io/page_vente/confidentialite" target="_blank">Politique de confidentialité</a>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Initialiser le sélecteur de pays pour téléphone
+        let phoneInput;
+        let isPhoneValid = false;
+        
+        // Configurez ici l'URL de votre webhook
+        const WEBHOOK_URL = "https://eliasse-n8n.onrender.com/webhook/ae09b384-6502-48cc-8a27-86fc0df8dcef";
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialiser le sélecteur de pays
+            const phoneInputField = document.querySelector("#phone");
+            phoneInput = window.intlTelInput(phoneInputField, {
+                initialCountry: "fr",
+                preferredCountries: ["fr", "be", "ch", "ca"],
+                utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.13/js/utils.js",
+                separateDialCode: true,
+                autoPlaceholder: "aggressive",
+                allowDropdown: true,
+                dropdownContainer: document.body
+            });
+            
+            // Valider le numéro de téléphone lors de la saisie
+            phoneInputField.addEventListener("input", function() {
+                validatePhoneNumber();
+            });
+            
+            // Mettre à jour le placeholder quand le pays change
+            phoneInputField.addEventListener("countrychange", function() {
+                validatePhoneNumber();
+            });
+            
+            // Focus automatique sur le premier champ
+            setTimeout(function() {
+                document.getElementById('email').focus();
+            }, 800);
+            
+            // Tracker le temps passé sur la page
+            setTimeout(function() {
+                if (typeof ttq !== 'undefined') {
+                    ttq.track('TimeOnPage', {
+                        'content_type': 'engagement',
+                        'content_name': '30_seconds'
+                    });
+                }
+            }, 30000);
+            
+            // Suivre les défilements significatifs
+            let hasTracked50 = false;
+            let hasTracked90 = false;
+            
+            window.addEventListener('scroll', function() {
+                const scrolled = window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100;
+                
+                if (!hasTracked50 && scrolled > 50) {
+                    if (typeof ttq !== 'undefined') {
+                        ttq.track('ContentView', {
+                            'content_type': 'scroll_depth',
+                            'content_name': '50_percent'
+                        });
+                    }
+                    hasTracked50 = true;
+                }
+                
+                if (!hasTracked90 && scrolled > 90) {
+                    if (typeof ttq !== 'undefined') {
+                        ttq.track('ContentView', {
+                            'content_type': 'scroll_depth',
+                            'content_name': '90_percent'
+                        });
+                    }
+                    hasTracked90 = true;
+                }
+            });
+        });
+        
+        function validatePhoneNumber() {
+            const phoneInput = document.querySelector("#phone");
+            const errorMsg = document.querySelector("#phone-error-msg");
+            
+            if (phoneInput.value.trim()) {
+                if (window.intlTelInputGlobals.getInstance(phoneInput).isValidNumber()) {
+                    phoneInput.classList.remove("error");
+                    errorMsg.innerHTML = "";
+                    isPhoneValid = true;
+                } else {
+                    phoneInput.classList.add("error");
+                    errorMsg.innerHTML = "Veuillez entrer un numéro valide";
+                    isPhoneValid = false;
+                }
+            } else {
+                phoneInput.classList.add("error");
+                errorMsg.innerHTML = "";
+                isPhoneValid = false;
+            }
+        }
+        
+        // Fonction pour suivre le clic sur le bouton
+        function trackButtonClick() {
+            // Uniquement traquer le clic si ce n'est pas déjà fait
+            if (!window.buttonClicked) {
+                // TikTok - événement de clic sur le bouton
+                if (typeof ttq !== 'undefined') {
+                    ttq.track('ClickButton', {
+                        'content_name': 'masterclass_button'
+                    });
+                }
+                
+                // Google Analytics
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'button_click', {
+                        'event_category': 'engagement',
+                        'event_label': 'masterclass_button'
+                    });
+                }
+                
+                // Marquer comme cliqué pour éviter les comptages multiples
+                window.buttonClicked = true;
+            }
+        }
+        
+        // Gérer la soumission du formulaire
+        async function handleFormSubmit(event) {
+            event.preventDefault();
+            
+            const emailInput = document.getElementById('email');
+            const submitBtn = document.getElementById('submitBtn');
+            
+            // Validation simple de l'email
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(emailInput.value)) {
+                emailInput.focus();
+                emailInput.style.borderColor = "var(--highlight)";
+                return false;
+            }
+            
+            // Valider le numéro de téléphone
+            validatePhoneNumber();
+            if (!isPhoneValid) {
+                document.getElementById('phone').focus();
+                return false;
+            }
+            
+            // Récupérer le numéro complet avec l'indicatif
+            const fullPhoneNumber = phoneInput.getNumber();
+            
+            // Affichage du loader et désactivation du bouton
+            submitBtn.classList.add('loading');
+            submitBtn.disabled = true;
+            
+            // Préparer les données à envoyer (format simplifié)
+            const formData = {
+                email: emailInput.value,
+                phone: fullPhoneNumber
+            };
+            
+            // Tracking TikTok de la génération de lead (et non de la conversion)
+            trackTikTokEvent('SubmitForm', 'lead_generation');
+            
+            // Google Analytics event
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'lead_capture', {
+                    'event_category': 'form',
+                    'event_label': 'masterclass_registration'
+                });
+            }
+            
+            // Stocker les données dans localStorage
+            localStorage.setItem('user_email', emailInput.value);
+            localStorage.setItem('user_phone', fullPhoneNumber);
+            localStorage.setItem('registration_date', new Date().toISOString());
+            
+            // Envoyer les données au webhook
+            try {
+                // Envoyer vers le webhook (si URL configurée)
+                if (WEBHOOK_URL && WEBHOOK_URL !== "VOTRE_URL_WEBHOOK") {
+                    await sendToWebhook(formData);
+                }
+                
+                // Après un court délai, rediriger vers la page de vente
+                setTimeout(function() {
+                    window.location.href = 'https://eliassaoe.github.io/page_vente/';
+                }, 800);
+                
+            } catch (error) {
+                console.error("Erreur lors de l'envoi des données:", error);
+                
+                // En cas d'erreur, on redirige quand même pour ne pas bloquer l'utilisateur
+                setTimeout(function() {
+                    window.location.href = 'https://eliassaoe.github.io/page_vente/';
+                }, 800);
+            }
+            
+            return false;
+        }
+        
+        // Fonction pour envoyer les données à votre webhook
+        async function sendToWebhook(data) {
+            try {
+                const response = await fetch(WEBHOOK_URL, {
+                    method: 'POST',
+                    mode: 'cors',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`Erreur HTTP: ${response.status}`);
+                }
+                
+                return true;
+            } catch (error) {
+                console.error("Erreur d'envoi vers le webhook:", error);
+                return false;
+            }
+        }
+    </script>
+</body>
+</html>
