@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>IA Society - Opportunité Agents IA</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+    
+    <!-- Préchargement des polices -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #BC0003;
+            --secondary: #910002;
+            --highlight: #FF4A4C;
+            --black: #000000;
+            --white: #ffffff;
+            --gray-light: #f0f0f0;
+            --gray-dark: #333333;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--white);
+            background-color: var(--black);
+            line-height: 1.5;
+            font-size: 16px;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+            flex: 1;
+        }
+        
+        .header {
+            text-align: center;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            position: relative;
+            z-index: 10;
+        }
+        
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .logo-img {
+            max-width: 160px;
+            height: auto;
+        }
+        
+        .logo {
+            max-width: 160px;
+            font-weight: 700;
+            font-size: 24px;
+            background: linear-gradient(90deg, var(--white) 0%, var(--highlight) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+        }
+        
+        .main {
+            padding: 25px 0;
+            text-align: center;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .main-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 28px;
+            line-height: 1.3;
+            margin-bottom: 30px;
+            padding: 0 10px;
+            letter-spacing: -0.5px;
+        }
+        
+        .highlight {
+            color: var(--highlight);
+            font-weight: 700;
+            display: inline;
+        }
+        
+        .video-container {
+            margin-bottom: 40px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 2px solid rgba(255, 255, 255, 0.15);
+        }
+        
+        .cta-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--highlight) 0%, var(--primary) 100%);
+            color: var(--white);
+            font-weight: 700;
+            font-size: 18px;
+            text-transform: uppercase;
+            padding: 20px 40px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-decoration: none;
+            letter-spacing: 0.5px;
+            position: relative;
+            margin: 20px auto;
+            display: block;
+            max-width: 300px;
+            text-align: center;
+        }
+        
+        .cta-btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+            transition: opacity 0.3s;
+            opacity: 0;
+        }
+        
+        .cta-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.4);
+        }
+        
+        .cta-btn:hover::after {
+            opacity: 1;
+        }
+        
+        .cta-btn:active {
+            transform: translateY(1px);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        .footer {
+            padding: 20px 0;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 14px;
+            margin-top: 20px;
+        }
+        
+        .footer-links {
+            margin-top: 10px;
+        }
+        
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            margin: 0 10px;
+            font-size: 12px;
+        }
+        
+        .footer-links a:hover {
+            color: var(--white);
+            text-decoration: underline;
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .main-title, .video-container, .cta-btn {
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+        
+        .video-container {
+            animation-delay: 0.2s;
+        }
+        
+        .cta-btn {
+            animation-delay: 0.4s;
+        }
+        
+        /* Mobile optimization */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 15px;
+            }
+            
+            .main {
+                padding: 15px 0;
+            }
+            
+            .main-title {
+                font-size: 22px;
+                margin-bottom: 20px;
+                padding: 0 5px;
+            }
+            
+            .cta-btn {
+                font-size: 16px;
+                padding: 18px 30px;
+                max-width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="logo-container">
+                <img src="https://iasociety.fr/img/logo.png" alt="IA Society" class="logo-img" width="160" height="40" 
+                     srcset="https://iasociety.fr/img/logo.png 1x, https://iasociety.fr/img/logo@2x.png 2x"
+                     loading="lazy" onerror="this.style.display='none'; document.querySelector('.logo').style.display='block';">
+                <h2 class="logo" style="display:none;">IA Society</h2>
+            </div>
+        </div>
+    </header>
+    
+    <main class="main">
+        <div class="container">
+            <h1 class="main-title">
+                📺 Comment les agents IA permettent à des <span class="highlight">débutants</span> de gagner <span class="highlight">jusqu'à 3872€/mois</span> en accompagnant les entreprises
+            </h1>
+            
+           <div style="position: relative; padding-bottom: 62.5%; height: 0;"><iframe src="https://www.loom.com/embed/b38465ade02e45ee908c75977b6850d8?sid=a3b2ae5e-37ae-4923-a0f7-2ba90defe105" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe></div>
+            
+            <a href="https://buy.stripe.com/fZe6pR1BtcNp2XK3cf" class="cta-btn">NOUS REJOINDRE</a>
+        </div>
+    </main>
+    
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 IA Society - Tous droits réservés</p>
+            <div class="footer-links">
+                <a href="https://eliassaoe.github.io/page_vente/conditions" target="_blank">Conditions d'utilisation</a>
+                <a href="https://eliassaoe.github.io/page_vente/confidentialite" target="_blank">Politique de confidentialité</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
