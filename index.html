@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title>IA Society - Agents IA</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
@@ -80,101 +80,140 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
         
         body {
             font-family: 'Montserrat', sans-serif;
             color: var(--white);
             background-color: var(--black);
+            line-height: 1.4;
+            font-size: 16px;
+            overflow-x: hidden; /* Empêcher le défilement horizontal */
         }
         
         .container {
+            width: 100%;
             max-width: 1100px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 15px;
         }
         
         .header {
             text-align: center;
-            padding: 20px 0;
+            padding: 15px 0;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
         
         .logo {
-            max-width: 200px;
+            max-width: 160px;
         }
         
         .hero {
-            padding: 50px 0;
+            padding: 25px 0;
             text-align: center;
         }
         
         .hero-title {
             font-family: 'Anton', sans-serif;
-            font-size: 38px;
+            font-size: 28px;
             line-height: 1.2;
             margin-bottom: 20px;
+            padding: 0 10px;
+        }
+        
+        /* Styles optimisés pour la vidéo */
+        .video-container {
+            position: relative;
+            width: 100%;
+            margin-bottom: 25px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .video-container iframe {
+            aspect-ratio: 16/10;
+            width: 100% !important;
+            height: auto !important;
+            border-radius: 12px;
+            max-height: none !important;
         }
         
         .price-box {
             background-color: var(--primary);
-            padding: 20px;
-            border-radius: 8px;
-            margin: 30px auto;
-            max-width: 600px;
-            font-size: 24px;
+            padding: 20px 15px;
+            border-radius: 12px;
+            margin: 25px auto;
+            width: 100%;
+            font-size: 22px;
             font-weight: bold;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
         }
         
         .btn {
-            display: inline-block;
+            display: block;
+            width: 100%;
+            max-width: none;
             background-color: var(--secondary);
             color: var(--white);
             font-weight: 700;
-            font-size: 18px;
+            font-size: 20px;
             text-transform: uppercase;
-            padding: 20px 40px;
+            padding: 20px 15px;
             border: none;
-            border-radius: 5px;
+            border-radius: 12px;
             cursor: pointer;
             text-decoration: none;
-            margin: 20px 0;
+            margin: 25px 0;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            transition: transform 0.2s, background-color 0.2s, box-shadow 0.2s;
+            -webkit-appearance: none;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+            outline: none;
         }
         
-        .btn:hover {
+        .btn:hover, .btn:active {
             background-color: var(--primary);
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+        }
+        
+        .btn:active {
+            transform: translateY(1px);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
         }
         
         .features {
-            padding: 50px 0;
+            padding: 30px 0;
             text-align: center;
         }
         
         .section-title {
             font-family: 'Anton', sans-serif;
-            font-size: 32px;
-            margin-bottom: 30px;
+            font-size: 26px;
+            margin-bottom: 25px;
             text-align: center;
         }
         
         .feature-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
+            grid-template-columns: 1fr;
+            gap: 15px;
         }
         
         .feature-box {
             background-color: rgba(255, 255, 255, 0.05);
-            padding: 25px;
-            border-radius: 8px;
+            padding: 22px 18px;
+            border-radius: 12px;
             text-align: left;
         }
         
         .feature-icon {
-            font-size: 32px;
-            margin-bottom: 15px;
+            font-size: 36px;
+            margin-bottom: 12px;
         }
         
         .feature-box h3 {
@@ -184,13 +223,13 @@
         }
         
         .feature-box p {
-            font-size: 15px;
+            font-size: 16px;
             line-height: 1.5;
             color: #C9D8E0;
         }
         
         .cta {
-            padding: 60px 0;
+            padding: 40px 0;
             text-align: center;
         }
         
@@ -198,7 +237,10 @@
             color: #e93d3d;
             font-size: 18px;
             font-weight: 700;
-            margin-bottom: 20px;
+            margin: 20px 0;
+            padding: 12px;
+            background-color: rgba(233, 61, 61, 0.1);
+            border-radius: 8px;
         }
         
         .footer {
@@ -207,18 +249,63 @@
             border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
         
+        /* Optimisations spécifiques pour les appareils mobiles */
         @media (max-width: 768px) {
+            body {
+                font-size: 18px;
+            }
+            
+            .hero {
+                padding-top: 15px;
+            }
+            
             .hero-title {
-                font-size: 32px;
+                font-size: 26px;
+                margin-bottom: 15px;
+            }
+            
+            .btn {
+                font-size: 20px;
+                padding: 18px 15px;
+                margin: 15px auto;
+            }
+            
+            .price-box {
+                font-size: 20px;
+                padding: 18px 10px;
+            }
+            
+            .feature-box {
+                padding: 20px 15px;
+            }
+            
+            .feature-box h3 {
+                font-size: 18px;
+            }
+            
+            .feature-box p {
+                font-size: 16px;
+            }
+            
+            .section-title {
+                font-size: 24px;
+                margin-bottom: 20px;
+            }
+        }
+        
+        /* Optimisations spécifiques pour les petits téléphones */
+        @media (max-width: 375px) {
+            .hero-title {
+                font-size: 24px;
+            }
+            
+            .btn {
+                font-size: 18px;
+                padding: 16px 10px;
             }
             
             .price-box {
                 font-size: 18px;
-            }
-            
-            .btn {
-                padding: 15px 30px;
-                font-size: 16px;
             }
         }
     </style>
@@ -233,10 +320,12 @@
     <section class="hero">
         <div class="container">
             <h1 class="hero-title">MAÎTRISEZ ET VENDEZ DES AGENTS IA AUX ENTREPRISES</h1>
-            <div style="position: relative; padding-bottom: 62.5%; height: 0;"><iframe src="https://www.loom.com/embed/9ce412339c7c4d76b877e360d6459c41?sid=b3866f13-49a3-4616-af0d-7dfc8e8326a5" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe></div>
+            <div class="video-container">
+                <iframe src="https://www.loom.com/embed/9ce412339c7c4d76b877e360d6459c41?sid=b3866f13-49a3-4616-af0d-7dfc8e8326a5" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+            </div>
             <div class="price-box">
                 OFFRE SPÉCIALE: 47€/MOIS SANS ENGAGEMENT<br>
-                <span style="font-size: 18px">au lieu de 97€</span>
+                <span style="font-size: 16px">au lieu de 97€</span>
             </div>
             
             <a href="https://buy.stripe.com/fZe6pR1BtcNp2XK3cf" class="btn" target="_blank" onclick="trackTikTokConversion('InitiateCheckout'); return true;">ACHETER MAINTENANT</a>
@@ -291,7 +380,7 @@
         <div class="container">
             <div class="price-box">
                 47€/MOIS - PRIX BLOQUÉ À VIE<br>
-                <span style="font-size: 18px">Sans engagement - Résiliable à tout moment</span>
+                <span style="font-size: 16px">Sans engagement - Résiliable à tout moment</span>
             </div>
             
             <p class="urgency">🚨 Le prix passera à 97€ après 200 inscriptions !</p>
@@ -359,6 +448,22 @@
                 });
             }
         }, 30000);
+    });
+    
+    // Ajout: script pour assurer que la vidéo soit lancée dès que possible
+    document.addEventListener('DOMContentLoaded', function() {
+        // Forcer l'attention sur la vidéo
+        const videoFrame = document.querySelector('iframe');
+        if (videoFrame) {
+            // Essayer de mettre le focus sur la vidéo
+            setTimeout(function() {
+                try {
+                    videoFrame.focus();
+                } catch (e) {
+                    console.log('Focus failed:', e);
+                }
+            }, 1000);
+        }
     });
     </script>
 </body>
