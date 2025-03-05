@@ -30,6 +30,43 @@
         ttq.page();
     }(window, document, 'ttq');
     </script>
+
+    <!-- Nouveau code pour Advanced Matching sur page load -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Get stored user identifiers from localStorage if available
+        const storedEmail = localStorage.getItem('user_email') || '';
+        const storedPhone = localStorage.getItem('user_phone') || '';
+        const storedExternalId = localStorage.getItem('user_external_id') || generateExternalId();
+        
+        // If we don't have an external ID stored, generate and save one
+        if (!localStorage.getItem('user_external_id')) {
+            localStorage.setItem('user_external_id', storedExternalId);
+        }
+        
+        // Always identify with whatever data we have, even if fields are empty
+        ttq.identify({
+            email: storedEmail,
+            phone_number: storedPhone,
+            external_id: storedExternalId
+        });
+        
+        // Also update the ViewContent event with user data
+        ttq.track('ViewContent', {
+            'content_type': 'product',
+            'content_name': 'ia_society',
+            'email': storedEmail, 
+            'phone_number': storedPhone,
+            'external_id': storedExternalId
+        });
+    });
+
+    // Helper function to generate a persistent external ID
+    function generateExternalId() {
+        return 'user_' + Math.random().toString(36).substring(2, 15) + 
+               Math.random().toString(36).substring(2, 15);
+    }
+    </script>
     
     <!-- Fonction optimisée de tracking TikTok -->
     <script>
@@ -38,11 +75,16 @@
         
         ttq.ready(function() {
             try {
-                // Créer un ID d'événement uniforme
+                // Get stored user identifiers
+                const email = localStorage.getItem('user_email') || '';
+                const phone = localStorage.getItem('user_phone') || '';
+                const externalId = localStorage.getItem('user_external_id') || '';
+                
+                // Create event ID and transaction ID
                 const eventId = eventType.toLowerCase() + "_" + Date.now();
                 const transactionId = "ORDER_" + Date.now();
                 
-                // N'envoyer qu'une seule fois avec tous les paramètres
+                // Send event with ALL available user identifiers
                 ttq.track(eventType, {
                     "contents": [
                         {
@@ -57,7 +99,10 @@
                     "purchase_type": "subscription",
                     "transaction_id": transactionId,
                     "event_id": eventId,
-                    "url": window.location.href
+                    "url": window.location.href,
+                    "email": email,
+                    "phone_number": phone,
+                    "external_id": externalId
                 });
                 
                 console.log("TikTok conversion tracked: " + eventType + " with ID: " + eventId);
@@ -939,9 +984,17 @@
                 
                 // Tracker l'engagement vidéo
                 if (typeof ttq !== 'undefined') {
+                    // Get stored user identifiers
+                    const email = localStorage.getItem('user_email') || '';
+                    const phone = localStorage.getItem('user_phone') || '';
+                    const externalId = localStorage.getItem('user_external_id') || '';
+                    
                     ttq.track('VideoEngagement', {
                         'content_type': 'video',
-                        'content_name': 'loom_presentation'
+                        'content_name': 'loom_presentation',
+                        'email': email,
+                        'phone_number': phone,
+                        'external_id': externalId
                     });
                 }
                 
@@ -966,9 +1019,17 @@
             
             if (!hasTracked50 && scrolled > 50) {
                 if (typeof ttq !== 'undefined') {
+                    // Get stored user identifiers
+                    const email = localStorage.getItem('user_email') || '';
+                    const phone = localStorage.getItem('user_phone') || '';
+                    const externalId = localStorage.getItem('user_external_id') || '';
+                    
                     ttq.track('ContentView', {
                         'content_type': 'scroll_depth',
-                        'content_name': '50_percent'
+                        'content_name': '50_percent',
+                        'email': email,
+                        'phone_number': phone,
+                        'external_id': externalId
                     });
                 }
                 hasTracked50 = true;
@@ -976,9 +1037,17 @@
             
             if (!hasTracked90 && scrolled > 90) {
                 if (typeof ttq !== 'undefined') {
+                    // Get stored user identifiers
+                    const email = localStorage.getItem('user_email') || '';
+                    const phone = localStorage.getItem('user_phone') || '';
+                    const externalId = localStorage.getItem('user_external_id') || '';
+                    
                     ttq.track('ContentView', {
                         'content_type': 'scroll_depth',
-                        'content_name': '90_percent'
+                        'content_name': '90_percent',
+                        'email': email,
+                        'phone_number': phone,
+                        'external_id': externalId
                     });
                 }
                 hasTracked90 = true;
@@ -988,9 +1057,17 @@
         // Suivre le temps passé sur la page
         setTimeout(function() {
             if (typeof ttq !== 'undefined') {
+                // Get stored user identifiers
+                const email = localStorage.getItem('user_email') || '';
+                const phone = localStorage.getItem('user_phone') || '';
+                const externalId = localStorage.getItem('user_external_id') || '';
+                
                 ttq.track('TimeOnPage', {
                     'content_type': 'engagement',
-                    'content_name': '30_seconds'
+                    'content_name': '30_seconds',
+                    'email': email,
+                    'phone_number': phone,
+                    'external_id': externalId
                 });
             }
         }, 30000);
