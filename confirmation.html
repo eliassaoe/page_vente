@@ -15,7 +15,7 @@
     <meta property="og:url" content="https://iasociety.fr/confirmation" />
     <meta property="og:image" content="https://iasociety.fr/img/logo.png" />
     
-    <!-- TikTok Pixel Code - Optimisé -->
+    <!-- TikTok Pixel Code - Optimisé avec Advanced Matching -->
     <script>
     !function (w, d, t) {
         w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie","holdConsent","revokeConsent","grantConsent"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var r="https://analytics.tiktok.com/i18n/pixel/events.js",o=n&&n.partner;ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=r,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};n=document.createElement("script");n.type="text/javascript",n.async=!0,n.src=r+"?sdkid="+e+"&lib="+t;e=document.getElementsByTagName("script")[0];e.parentNode.insertBefore(n,e)};
@@ -25,9 +25,6 @@
         
         // IMPORTANT: Activer les cookies first-party pour l'Advanced Matching
         ttq.enableCookie();
-        
-        // Activer le mode debug temporairement pour vérifier le fonctionnement
-        ttq.debug(true);
         
         // Enregistrement de la visite de page
         ttq.page();
@@ -150,7 +147,7 @@
         <a href="https://calendly.com/hamoureliasse/appel-de-candidature-clone" class="btn" id="btn-call" style="margin-left: 15px; background-color: #37ca37;">RÉSERVER MON APPEL</a>
     </div>
     
-    <!-- Script de tracking de conversion - CORRIGÉ -->
+    <!-- Script de tracking de conversion avec Advanced Matching -->
     <script>
     // Fonction pour récupérer les paramètres d'URL
     function getUrlParameter(name) {
@@ -159,51 +156,137 @@
         var results = regex.exec(location.search);
         return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
     }
-
-    // CORRECTION: Exécution immédiate pour le tracking de conversion
-    (function() {
-        // Petite temporisation pour s'assurer que ttq est chargé
-        setTimeout(function() {
-            if (typeof ttq !== 'undefined') {
-                // Récupérer les paramètres potentiels
-                const sessionId = getUrlParameter('session_id');
-                const orderId = getUrlParameter('order_id');
-                const transactionId = sessionId || orderId || "ORDER_" + Date.now();
+    
+    // Récupération des informations client depuis Stripe ou localStorage
+    function getCustomerInfo() {
+        // Essayer d'abord de récupérer depuis l'URL (si Stripe les passe)
+        const email = getUrlParameter('customer_email');
+        const phone = getUrlParameter('customer_phone');
+        const externalId = getUrlParameter('customer_id');
+        
+        // Si les données ne sont pas dans l'URL, essayer localStorage
+        // (ces données auraient dû être sauvegardées lors du passage en caisse)
+        const storedEmail = localStorage.getItem('customer_email');
+        const storedPhone = localStorage.getItem('customer_phone');
+        const storedId = localStorage.getItem('customer_id');
+        
+        return {
+            email: email || storedEmail || '',
+            phone: phone || storedPhone || '',
+            external_id: externalId || storedId || ''
+        };
+    }
+    
+    // Génération d'un hash SHA-256 (pour les données sensibles)
+    async function sha256(message) {
+        // Encode as UTF-8
+        const msgBuffer = new TextEncoder().encode(message);                    
+        // Hash the message
+        const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+        // Convert ArrayBuffer to Array
+        const hashArray = Array.from(new Uint8Array(hashBuffer));
+        // Convert bytes to hex string
+        const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+        return hashHex;
+    }
+    
+    // Fonction pour initialiser l'Advanced Matching
+    async function initAdvancedMatching() {
+        const customerInfo = getCustomerInfo();
+        
+        // Si nous avons des données client
+        if (customerInfo.email || customerInfo.phone || customerInfo.external_id) {
+            try {
+                const identifyData = {};
                 
-                console.log("Envoi de l'événement Purchase à TikTok...");
+                // Hacher l'email si disponible (recommandé pour la confidentialité)
+                if (customerInfo.email) {
+                    identifyData.email = await sha256(customerInfo.email.toLowerCase().trim());
+                }
                 
-                // Envoi direct de l'événement Purchase
-                ttq.track('Purchase', {
-                    "contents": [{
-                        "content_id": "ia-society-membership",
-                        "content_type": "product", 
-                        "content_name": "IA Society Membership"
-                    }],
-                    "value": 47,
-                    "currency": "EUR",
-                    "quantity": 1,
-                    "purchase_type": "subscription",
-                    "transaction_id": transactionId
-                });
+                // Hacher le téléphone si disponible (recommandé pour la confidentialité)
+                if (customerInfo.phone) {
+                    // Nettoyer le numéro de téléphone (enlever caractères non numériques)
+                    const cleanPhone = customerInfo.phone.replace(/\D/g, '');
+                    identifyData.phone_number = await sha256(cleanPhone);
+                }
                 
-                // Également envoyer CompletePayment pour la compatibilité
-                ttq.track('CompletePayment', {
-                    "contents": [{
-                        "content_id": "ia-society-membership",
-                        "content_type": "product", 
-                        "content_name": "IA Society Membership"
-                    }],
-                    "value": 47,
-                    "currency": "EUR",
-                    "quantity": 1,
-                    "transaction_id": transactionId
-                });
+                // Ajouter l'ID externe si disponible
+                if (customerInfo.external_id) {
+                    identifyData.external_id = customerInfo.external_id;
+                }
                 
-                console.log("Événements de conversion envoyés avec ID: " + transactionId);
-            } else {
-                console.error("TikTok Pixel (ttq) n'est pas chargé");
+                // Activer l'Advanced Matching
+                if (typeof ttq !== 'undefined') {
+                    console.log("Initialisation de l'Advanced Matching avec:", identifyData);
+                    ttq.identify(identifyData);
+                }
+            } catch (e) {
+                console.error("Erreur lors de l'initialisation de l'Advanced Matching:", e);
             }
-        }, 1000); // Attendre 1 seconde pour s'assurer que ttq est chargé
+        } else {
+            console.warn("Aucune donnée client disponible pour l'Advanced Matching");
+            
+            // Si aucune donnée n'est disponible, utiliser uniquement l'ID
+            if (typeof ttq !== 'undefined') {
+                ttq.identify({
+                    external_id: "purchase_" + Date.now()
+                });
+            }
+        }
+    }
+
+    // Exécution immédiate du tracking de conversion avec Advanced Matching
+    (async function() {
+        try {
+            // Initialiser l'Advanced Matching d'abord
+            await initAdvancedMatching();
+            
+            // Petite temporisation pour s'assurer que ttq est chargé
+            setTimeout(function() {
+                if (typeof ttq !== 'undefined') {
+                    // Récupérer les paramètres de transaction
+                    const sessionId = getUrlParameter('session_id');
+                    const orderId = getUrlParameter('order_id');
+                    const transactionId = sessionId || orderId || "ORDER_" + Date.now();
+                    
+                    console.log("Envoi de l'événement Purchase à TikTok...");
+                    
+                    // Envoi de l'événement Purchase
+                    ttq.track('Purchase', {
+                        "contents": [{
+                            "content_id": "ia-society-membership",
+                            "content_type": "product", 
+                            "content_name": "IA Society Membership"
+                        }],
+                        "value": 47,
+                        "currency": "EUR",
+                        "quantity": 1,
+                        "purchase_type": "subscription",
+                        "transaction_id": transactionId
+                    });
+                    
+                    // Envoi de l'événement CompletePayment
+                    ttq.track('CompletePayment', {
+                        "contents": [{
+                            "content_id": "ia-society-membership",
+                            "content_type": "product", 
+                            "content_name": "IA Society Membership"
+                        }],
+                        "value": 47,
+                        "currency": "EUR",
+                        "quantity": 1,
+                        "transaction_id": transactionId
+                    });
+                    
+                    console.log("Événements de conversion envoyés avec succès");
+                } else {
+                    console.error("TikTok Pixel (ttq) n'est pas chargé");
+                }
+            }, 1000);
+        } catch (e) {
+            console.error("Erreur pendant le tracking de conversion:", e);
+        }
     })();
 
     // Gestion des clics sur les boutons
