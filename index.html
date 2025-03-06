@@ -222,7 +222,7 @@
             }
         }
         
-        // Gérer la soumission du formulaire avec tracking amélioré
+        // Gérer la soumission du formulaire avec tracking amélioré et redirection garantie
         async function handleFormSubmit(event) {
             event.preventDefault();
             
@@ -294,24 +294,41 @@
             // Envoyer les données au webhook
             try {
                 // Envoyer vers le webhook (avec URL mise à jour)
-                await sendToWebhook(formData);
+                // Utilisation de Promise.race avec un timeout pour éviter de bloquer la redirection
+                await Promise.race([
+                    sendToWebhook(formData),
+                    new Promise(resolve => setTimeout(resolve, 2000)) // Timeout de 2 secondes maximum
+                ]);
                 
                 // Afficher un message de succès avant la redirection
                 showSuccessMessage();
                 
-                // Après un court délai, rediriger vers la page de vente
-                setTimeout(function() {
-                    window.location.href = 'https://eliassaoe.github.io/page_vente/masterclass';
-                }, 1500);
-                
             } catch (error) {
                 console.error("Erreur lors de l'envoi des données:", error);
-                
-                // En cas d'erreur, on redirige quand même pour ne pas bloquer l'utilisateur
-                setTimeout(function() {
-                    window.location.href = 'https://eliassaoe.github.io/page_vente/masterclass';
-                }, 1500);
             }
+            
+            // IMPORTANT: Toujours rediriger vers la masterclass après quelques secondes
+            // même en cas d'erreur dans l'envoi de données
+            setTimeout(function() {
+                // Construire l'URL avec les paramètres encodés pour le suivi
+                const redirectUrl = new URL('https://eliassaoe.github.io/page_vente/masterclass');
+                
+                // Ajouter les paramètres de suivi en les encodant correctement
+                if (sanitizedEmail) {
+                    redirectUrl.searchParams.append('email', encodeURIComponent(sanitizedEmail));
+                }
+                
+                if (fullPhoneNumber) {
+                    redirectUrl.searchParams.append('phone', encodeURIComponent(fullPhoneNumber));
+                }
+                
+                if (localStorage.getItem('ttclid')) {
+                    redirectUrl.searchParams.append('ttclid', localStorage.getItem('ttclid'));
+                }
+                
+                // Redirection garantie vers la masterclass
+                window.location.href = redirectUrl.toString();
+            }, 1500);
             
             return false;
         }
