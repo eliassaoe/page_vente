@@ -288,7 +288,7 @@
             background-color: rgba(255, 255, 255, 0.3);
         }
         
-        .price-box {
+        .free-trial-box {
             background: linear-gradient(135deg, var(--primary) 0%, var(--highlight) 100%);
             padding: 25px 20px;
             border-radius: 12px;
@@ -302,7 +302,7 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
         
-        .price-box::before {
+        .free-trial-box::before {
             content: '';
             position: absolute;
             top: -10px;
@@ -314,27 +314,20 @@
             z-index: 0;
         }
         
-        .price-label {
+        .free-trial-label {
             font-size: 16px;
             font-weight: 500;
             margin-bottom: 8px;
             opacity: 0.9;
         }
         
-        .price-value {
+        .free-trial-value {
             font-size: 32px;
             font-weight: 700;
             margin-bottom: 5px;
         }
         
-        .price-regular {
-            font-size: 16px;
-            text-decoration: line-through;
-            opacity: 0.7;
-            margin-bottom: 10px;
-        }
-        
-        .price-guarantee {
+        .free-trial-guarantee {
             font-size: 14px;
             opacity: 0.9;
             font-weight: 500;
@@ -581,19 +574,6 @@
             text-align: center;
         }
         
-        .urgency {
-            color: var(--highlight);
-            font-size: 18px;
-            font-weight: 700;
-            margin: 30px 0;
-            padding: 15px;
-            background-color: rgba(255, 74, 76, 0.1);
-            border-radius: 8px;
-            border: 1px dashed rgba(255, 74, 76, 0.4);
-            position: relative;
-            overflow: hidden;
-        }
-        
         .footer {
             padding: 25px 0;
             text-align: center;
@@ -708,13 +688,13 @@
                 border-radius: 10px;
             }
             
-            .price-box {
+            .free-trial-box {
                 font-size: 20px;
                 padding: 20px 15px;
                 margin: 25px auto;
             }
             
-            .price-value {
+            .free-trial-value {
                 font-size: 28px;
             }
             
@@ -733,12 +713,6 @@
             .section-title {
                 font-size: 22px;
                 margin-bottom: 25px;
-            }
-            
-            .urgency {
-                font-size: 16px;
-                padding: 12px;
-                margin: 20px 0;
             }
         }
         
@@ -759,12 +733,12 @@
                 padding: 15px 10px;
             }
             
-            .price-box {
+            .free-trial-box {
                 font-size: 18px;
                 padding: 15px 10px;
             }
             
-            .price-value {
+            .free-trial-value {
                 font-size: 24px;
             }
             
@@ -819,15 +793,14 @@
                 </div>
             </div>
             
-            <div class="price-box">
-                <div class="price-label">OFFRE SPÉCIALE À DURÉE LIMITÉE</div>
-                <div class="price-value">47€/MOIS</div>
-                <div class="price-regular">au lieu de 97€</div>
-                <div class="price-guarantee">Sans engagement - Résiliable à tout moment</div>
+            <div class="free-trial-box">
+                <div class="free-trial-label">ESSAI GRATUIT</div>
+                <div class="free-trial-value">TESTEZ NOTRE PROGRAMME</div>
+                <div class="free-trial-guarantee">Sans engagement - Résiliable à tout moment</div>
             </div>
             
             <a href="https://buy.stripe.com/fZe6pR1BtcNp2XK3cf" class="btn" target="_blank" onclick="trackTikTokConversion('InitiateCheckout'); return true;">
-                REJOINDRE MAINTENANT
+                COMMENCER GRATUITEMENT
                 <span class="btn-label">Accès immédiat à tous les contenus</span>
             </a>
             
@@ -838,9 +811,8 @@
                 </div>
             </div>
         </div>
-    </section>
-    
-    <section class="testimonials">
+        
+        <section class="testimonials">
         <div class="container">
             <h2 class="section-title">ILS ONT RÉUSSI AVEC NOUS</h2>
             
@@ -870,6 +842,8 @@
                 </div>
             </div>
         </div>
+    </section>
+    
     </section>
     
     <section class="features">
@@ -924,17 +898,14 @@
     
     <section class="cta" id="join">
         <div class="container">
-            <div class="price-box">
-                <div class="price-label">OFFRE EXCLUSIVE</div>
-                <div class="price-value">47€/MOIS</div>
-                <div class="price-regular">au lieu de 97€</div>
-                <div class="price-guarantee">Prix bloqué à vie - Sans engagement</div>
+            <div class="free-trial-box">
+                <div class="free-trial-label">OFFRE EXCLUSIVE</div>
+                <div class="free-trial-value">ESSAI GRATUIT</div>
+                <div class="free-trial-guarantee">Sans engagement - Résiliable à tout moment</div>
             </div>
             
-            <p class="urgency">🚨 ATTENTION: Le prix passera à 97€ après les 200 premières inscriptions!</p>
-            
             <a href="https://buy.stripe.com/fZe6pR1BtcNp2XK3cf" class="btn" target="_blank" onclick="trackTikTokConversion('InitiateCheckout'); return true;">
-                REJOINDRE MAINTENANT
+                COMMENCER GRATUITEMENT
                 <span class="btn-label">Accès immédiat à tous les contenus</span>
             </a>
         </div>
@@ -1075,3 +1046,5 @@
     </script>
 </body>
 </html>
+    
+   
