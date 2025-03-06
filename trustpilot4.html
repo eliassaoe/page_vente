@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IA Society - Avis | Trustpilot</title>
+    <style>
+        :root {
+            --tp-green: #00b67a;
+            --tp-light-green: #73cfa9;
+            --tp-gray: #f5f5f5;
+            --tp-dark-gray: #37424a;
+            --tp-light-gray: #b6b6b6;
+            --tp-white: #ffffff;
+            --tp-black: #252525;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: var(--tp-black);
+            line-height: 1.5;
+        }
+        
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 15px;
+        }
+        
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e5e5e5;
+        }
+        
+        .logo-image {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        .company-info {
+            background-color: var(--tp-white);
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        
+        .company-name {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .company-rating {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .rating-number {
+            font-size: 36px;
+            font-weight: 700;
+            margin-right: 15px;
+        }
+        
+        .stars {
+            display: flex;
+            margin-right: 15px;
+            margin-bottom: 10px;
+        }
+        
+        .star {
+            width: 20px;
+            height: 20px;
+            margin-right: 2px;
+            background-color: var(--tp-green);
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+        }
+        
+        .half-star {
+            width: 20px;
+            height: 20px;
+            margin-right: 2px;
+            position: relative;
+        }
+        
+        .half-star:before {
+            content: "";
+            position: absolute;
+            width: 10px;
+            height: 20px;
+            background-color: var(--tp-green);
+            clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+        }
+        
+        .half-star:after {
+            content: "";
+            position: absolute;
+            left: 10px;
+            width: 10px;
+            height: 20px;
+            background-color: var(--tp-light-gray);
+            clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+        }
+        
+        .empty-star {
+            width: 20px;
+            height: 20px;
+            margin-right: 2px;
+            background-color: var(--tp-light-gray);
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+        }
+        
+        .rating-text {
+            font-size: 16px;
+            font-weight: 600;
+        }
+        
+        .rating-count {
+            font-size: 14px;
+            color: #666;
+            margin-left: 5px;
+        }
+        
+        .company-description {
+            margin-bottom: 15px;
+        }
+        
+        .review-controls {
+            display: flex;
+            flex-direction: column;
+            margin: 20px 0;
+        }
+        
+        .review-filter {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .filter-btn {
+            padding: 8px 12px;
+            background-color: var(--tp-white);
+            border: 1px solid #e5e5e5;
+            border-radius: 4px;
+            font-size: 14px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        
+        .filter-btn.active {
+            background-color: var(--tp-green);
+            color: white;
+            border-color: var(--tp-green);
+        }
+        
+        .write-review-btn {
+            padding: 10px 20px;
+            background-color: var(--tp-green);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            align-self: flex-start;
+        }
+        
+        .reviews-container {
+            margin-top: 20px;
+        }
+        
+        .review {
+            background-color: var(--tp-white);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .reviewer {
+            display: flex;
+            margin-bottom: 10px;
+        }
+        
+        .avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: var(--tp-light-green);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 10px;
+            color: white;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .reviewer-info {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .reviewer-name {
+            font-weight: 600;
+            font-size: 16px;
+        }
+        
+        .reviewer-meta {
+            font-size: 13px;
+            color: #666;
+        }
+        
+        .review-rating {
+            display: flex;
+        }
+        
+        .review-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .review-content {
+            font-size: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .review-date {
+            font-size: 13px;
+            color: #666;
+        }
+        
+        .verified {
+            color: var(--tp-green);
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            margin-top: 3px;
+        }
+        
+        .verified::before {
+            content: "✓";
+            margin-right: 5px;
+            font-weight: bold;
+        }
+        
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            gap: 5px;
+            flex-wrap: wrap;
+        }
+        
+        .page-btn {
+            padding: 8px 14px;
+            border: 1px solid #e5e5e5;
+            background-color: var(--tp-white);
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        .page-btn.active {
+            background-color: var(--tp-green);
+            color: white;
+            border-color: var(--tp-green);
+        }
+        
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+            padding: 15px;
+            color: #666;
+            font-size: 12px;
+        }
+        
+        .trustpilot-disclaimer {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .trustpilot-disclaimer img {
+            height: 18px;
+            margin-right: 10px;
+            margin-bottom: 5px;
+        }
+        
+        /* Media queries for better mobile responsiveness */
+        @media (min-width: 768px) {
+            .container {
+                max-width: 760px;
+                padding: 20px;
+            }
+            
+            .company-rating {
+                flex-wrap: nowrap;
+            }
+            
+            .review-controls {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+            }
+            
+            .review-filter {
+                margin-bottom: 0;
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .container {
+                max-width: 1024px;
+            }
+            
+            .star, .half-star, .empty-star {
+                width: 24px;
+                height: 24px;
+            }
+            
+            .half-star:before, .half-star:after {
+                width: 12px;
+                height: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo-container">
+            <img src="https://images.ctfassets.net/wonkqgvit51x/7BdJ9TrYZyj5pZYUOMcSJP/23baeafc88bf87bc76ee6c928a04c3c7/Trustpilot_new_logo.PNG" jsaction="" class="sFlh5c FyHeAf iPVvYb" style="max-width: 978px; height: 70px; margin: 0px; width: 251px;" alt="Des innovations constantes à l'ère de la confiance : Voici ..." jsname="kn3ccd" aria-hidden="false">
+        </div>
+        
+        <div class="company-info">
+            <h1 class="company-name">IA Society</h1>
+            <div class="company-rating">
+                <div class="rating-number">4.6</div>
+                <div class="stars">
+                    <div class="star"></div>
+                    <div class="star"></div>
+                    <div class="star"></div>
+                    <div class="star"></div>
+                    <div class="star"></div>
+                </div>
+                <div class="rating-text">Excellent <span class="rating-count">(102 avis)</span></div>
+            </div>
+            <div class="company-description">
+                <p>Formation premium pour entrepreneurs qui génèrent jusqu'à 3800€/mois en déployant des agents IA pour les entreprises, sans compétences techniques requises.</p>
+                <p>France • <a href="https://eliassaoe.github.io/page_vente/masterclass" style="color: #00b67a; text-decoration: none;">iasociety.fr</a></p>
+            </div>
+        </div>
+        
+        <div class="review-controls">
+            <div class="review-filter">
+                <button class="filter-btn active">Tous les avis</button>
+            </div>
+        </div>
+        
+        <div class="reviews-container">
+            <!-- Page 4 - Nouveaux avis (5 étoiles) -->
+            <div class="review">
+                <div class="review-header">
+                    <div class="reviewer">
+                        <div class="avatar">BM</div>
+                        <div class="reviewer-info">
+                            <div class="reviewer-name">Bruno Martin</div>
+                            <div class="reviewer-meta">FR • 2 avis</div>
+                            <div class="verified">Achat vérifié</div>
+                        </div>
+                    </div>
+                    <div class="review-rating">
+                        <div class="star"></div>
+                        <div class="star"></div>
+                        <div class="star"></div>
+                        <div class="star"></div>
+                        <div class="star"></div>
+                    </div>
+                </div>
+                <h3 class="review-title">je gagne 3500€ par mois SANS CODER</h3>
+                <p class="review-content">avant je galéré a trouver des clients maintenant jai une offre qui cartonne aupres des entreprises! les agent IA sont trop demandé et personne sait vraiment les configurer. jai commencer a 1000€ par mois et maintenant je facture 3500€ chaque mois avec 4 clients. le reseau de contacts fourni par IA Society ma aidé a demarrer super vite et les templates sont top la vrai vie apres 8 ans dans une boite qui me saoulait lol</p>
+                <p class="review-date"><strong>Date de l'expérience:</strong> 15 mars 2025</p>
+            </div>
+            
+            <div class="review">
+                <div class="review-header">
+                    <div class="reviewer">
+                        <div class="avatar">LD</div>
+                        <div class="reviewer-info">
+                            <div class="reviewer-name">Laura Delmas</div>
+                            <div class="reviewer-meta">FR • 3 avis</div>
+                            <div class="verified">Achat vérifié</div>
+                        </div>
+                    </div>
+                    <div class="review-rating">
+                        <div class="star"></div>
+                        <div class="star"></div>
+                        <div class="star"></div>
+                        <div class="star"></div>
+                        <div class="star"></div>
+                    </div>
+                </div>
+                <h3 class="review-title">Parfait pour mampreneur qui cherche activité flexible</h3>
+                <p class="review-content">En tant que maman de 2 enfants je cherchais une activité que je pouvais faire a des horaires flexibles. Cette formation ma permise de me lancer et travailler depuis chez moi. J'ai commencé doucement avec 1 client et maintenat j'en ai 3 pour 2700€/mois. Le mieux cest que je peux travailler quand je veux et les agents IA tournent 24/7. Les outils et les support sont vraiment au top merci IA Society!</p>
+                <p class="review-date"><strong>Date de l'expérience:</strong> 8 mars 2025</p>
+            </div>
+            
+            <div class="review">
+                <div class="review-header">
+                    <div class="reviewer">
+                        <div class="avatar">PM</div>
+                        <div class="reviewer-info">
+                            <div class="reviewer-name">Pascal Marchand</div>
+                            <div class="reviewer-meta">FR • 6 avis</div>
+                            <div class="verified">Achat vérifié</div>
+                        </div>
+                    </div>
+                    <div class="review-rating">
+                        <div class="star"></div>
+                        <div class="star"></div>
+                        <div class="star"></div>
+                        <div class="star"></div>
+                        <div class="star"></div>
+                    </div>
+                </div>
+                <h3 class="review-title">Exactement ce que je cherchais</h3>
+                <p class="review-content">J'avais deja esayé de me lancer dans l'IA mais je trouvais ca trop technique. Cette formation ma enfin permis de comprendre comment faire de l'argent avec l'IA sans etre un expert en tech. J'ai suivi leur méthode de A à Z et j'ai réussi a signer 1 client a 2200€/mois dans le secteur industiel. Ils repondent vite aux questions et les live hebdo sont super utile, je conseil vraiment!</p>
+                <p class="review-date"><strong>Date de l'expérience:</strong> 2 mars 2025</p>
+            </div>
+            
+            <div class="review">
+                <div class="review-header">
+                    <div class="reviewer">
+                        <div class="avatar">AL</div>
+                        <div class="reviewer-info">
+                            <div class="reviewer-name">Arnaud Lefèvre</div>
+                            <div class="reviewer-meta">FR • 1 avis</div>
+                            <div class="verified">Achat vérifié</div>
+                        </div>
+                    </div>
+                    <div class="review-rating">
+                        <div class="star"></div>
+                        <div class="star"></div>
+                        <div class="star"></div>
+                        <div class="star"></div>
+                        <div class="star"></div>
+                    </div>
+                </div>
+                <h3 class="review-title">Premier mois: 1900€ de CA!</h3>
+                <p class="review-content">Waouh j'ai suivi la formation et des le premier mois j'ai fait 1900€ de CA avec mon premier client! Les techniques de ventes sont vraiment au point et les ressources pour aborder les entreprises aussi. Les templates pour les agents IA sont super pratique car on peut les adapter en quelques minutes seulement pour repondre aux besoins specifiques des clients. Les lives sont super interressants et l'equipe est au top!</p>
+                <p class="review-date"><strong>Date de l'expérience:</strong> 27 février 2025</p>
+            </div>
+            
+            <div class="review">
+                <div class="review-header">
+                    <div class="reviewer">
+                        <div class="avatar">CL</div>
+                        <div class="reviewer-info">
+                            <div class="reviewer-name">Claire Lemoine</div>
+                            <div class="reviewer-meta">FR • 9 avis</div>
+                            <div class="verified">Achat vérifié</div>
+                        </div>
+                    </div>
+                    <div class="review-rating">
+                        <div class="star"></div>
+                        <div class="star"></div>
+                        <div class="star"></div>
+                        <div class="star"></div>
+                        <div class="star"></div>
+                    </div>
+                </div>
+                <h3 class="review-title">Formation que je recommande a 1000%</h3>
+                <p class="review-content">Je voulais me reconvertir apres 15 ans dans la finance. L'IA m'interressait mais je savais pas par ou commencer. La formation est super bien faite, pas besoin de compétences techniques, tout est expliqué. J'ai trouvé mon premier client apres 6 semaines (cabinet d'avocat) et maintenant j'en ai 3! Je gagne plus de 3000€/mois avec une activité que j'adore. Le support est hyper reactif et la communauté est super bienveillante je recommande vraiment!</p>
+                <p class="review-date"><strong>Date de l'expérience:</strong> 20 février 2025</p>
+            </div>
+            
+            <div class="review">
+                <div class="review-header">
+                    <div class="reviewer">
+                        <div class="avatar">DT</div>
+                        <div class="reviewer-info">
+                            <div class="reviewer-name">David Thibault</div>
+                            <div class="reviewer-meta">FR • 4 avis</div>
+                            <div class="verified">Achat vérifié</div>
+                        </div>
+                    </div>
+                    <div class="review-rating">
+                        <div class="star"></div>
+                        <div class="star"></div>
+                        <div class="star"></div>
+                        <div class="star"></div>
+                        <div class="star"></div>
+                    </div>
+                </div>
+                <h3 class="review-title">Rentabilisé x3 en 2 mois seulement</h3>
+                <p class="review-content">Au debut jetais pas sur de l'investissement mais ca a été plus que rentable! J'ai fais 3 fois mon investissement en 2 mois avec les clients que j'ai signés. Le plus important c'est de suivre la methode et d'aller jusqu'au bout. Le service client est top, ils répondent dans les 24h et ils ont meme fait des sessions speciales pour m'aider avec un cas client particulier. Merci a toute l'equipe!</p>
+                <p class="review-date"><strong>Date de l'expérience:</strong> 15 février 2025</p>
+            </div>
+            
+            <div class="review">
+                <div class="review-header">
+                    <div class="reviewer">
+                        <div class="avatar">MR</div>
+                        <div class="reviewer-info">
+                            <div class="reviewer-name">Mathieu Renard</div>
+                            <div class="reviewer-meta">FR • 2 avis</div>
+                            <div class="verified">Achat vérifié</div>
+                        </div>
+                    </div>
+                    <div class="review-rating">
+                        <div class="star"></div>
+                        <div class="star"></div>
+                        <div class="star"></div>
+                        <div class="star"></div>
+                        <div class="star"></div>
+                    </div>
+                </div>
+                <h3 class="review-title">Une formation qui fait la difference</h3>
+                <p class="review-content">Quand on voit toutes les formations sur l'IA qui existent on se demande laquelle choisir... j'ai fais le bon choix avec IA Society! Pas de blabla, que du concret et des resultats. Les modules sont tres bien faits et les templates d'agents IA sont vraiment professionnels. Jai signé un premier contrat a 1500€/mois puis un second a 2000€. Le reseau de contacts B2B est vraiment precieux quand on debute. Je recommande++</p>
+                <p class="review-date"><strong>Date de l'expérience:</strong> 10 février 2025</p>
+            </div>
+        </div>
+        
+        <div class="pagination">
+            <button class="page-btn">1</button>
+            <button class="page-btn">2</button>
+            <button class="page-btn">3</button>
+            <button class="page-btn active">4</button>
+            <button class="page-btn">></button>
+        </div>
+        
+        <div class="footer">
+            <div class="trustpilot-disclaimer">
+                <span>© 2025 Trustpilot, Inc. Tous droits réservés.</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
