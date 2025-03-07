@@ -2,15 +2,15 @@
 <html lang="fr">
 <head>
     <meta charset="utf-8">
-    <title>Confirmation d'achat - IA Society</title>
+    <title>Confirmation d'inscription - IA Society</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     
     <!-- Meta tags Open Graph pour améliorer le tracking -->
-    <meta property="og:title" content="Confirmation d'achat - IA Society" />
-    <meta property="og:description" content="Félicitations pour votre abonnement à IA Society" />
+    <meta property="og:title" content="Confirmation d'inscription - IA Society" />
+    <meta property="og:description" content="Félicitations pour votre inscription à IA Society" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://iasociety.fr/confirmation" />
     <meta property="og:image" content="https://iasociety.fr/img/logo.png" />
@@ -138,10 +138,10 @@
         
         <div class="success-icon">✓</div>
         
-        <h1 class="confirmation-title">PAIEMENT CONFIRMÉ !</h1>
+        <h1 class="confirmation-title">INSCRIPTION CONFIRMÉE !</h1>
         
         <p class="confirmation-text">
-            Félicitations ! Votre abonnement à IA Society a été activé avec succès.
+            Félicitations ! Votre inscription gratuite à IA Society a été activée avec succès.
             Vous faites maintenant partie de notre communauté d'experts en IA.
         </p>
         
@@ -150,13 +150,11 @@
             <ol>
                 <li>Vous allez recevoir un email de confirmation avec vos informations d'accès.</li>
                 <li>Rejoignez notre communauté privée pour commencer à interagir avec les autres membres.</li>
-                <li>Réservez votre appel d'onboarding avec un coach IA pour bien démarrer.</li>
+                <li>Explorez les ressources disponibles et commencez votre formation dès maintenant.</li>
             </ol>
         </div>
         
         <a href="https://discord.gg/V2ErC4Aw4r" class="btn" id="btn-community">ACCÉDER À LA COMMUNAUTÉ</a>
-        
-        <a href="https://calendly.com/hamoureliasse/appel-de-candidature-clone" class="btn" id="btn-call" style="margin-left: 15px; background-color: #37ca37;">RÉSERVER MON APPEL</a>
     </div>
     
     <!-- Script de tracking de conversion TikTok - CORRIGÉ -->
@@ -225,7 +223,7 @@
                     "content_type": "product",
                     "content_name": "IA Society Membership"
                 }],
-                "value": 47,
+                "value": 0,
                 "currency": "EUR",
                 "quantity": 1,
                 "purchase_type": "subscription",
@@ -244,7 +242,7 @@
                     "content_type": "product",
                     "content_name": "IA Society Membership"
                 }],
-                "value": 47,
+                "value": 0,
                 "currency": "EUR",
                 "quantity": 1,
                 "purchase_type": "subscription",
@@ -298,22 +296,6 @@
                     ttq.track('ClickButton', {
                         'content_type': 'product',
                         'content_name': 'join_discord',
-                        'email': customerInfo.email,
-                        'phone_number': customerInfo.phone,
-                        'external_id': customerInfo.external_id
-                    });
-                }
-            });
-        }
-        
-        // Suivre les clics sur le bouton Appel
-        const callButton = document.getElementById('btn-call');
-        if (callButton) {
-            callButton.addEventListener('click', function() {
-                if (typeof ttq !== 'undefined') {
-                    ttq.track('ClickButton', {
-                        'content_type': 'product',
-                        'content_name': 'book_onboarding',
                         'email': customerInfo.email,
                         'phone_number': customerInfo.phone,
                         'external_id': customerInfo.external_id
